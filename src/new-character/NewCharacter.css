@@ -1,0 +1,8 @@
+.formControl {
+    margin: 1rem !important;
+    min-width: 120px !important;
+}
+
+.selectEmpty {
+    margin-top: 2rem !important;
+}
