@@ -1,5 +1,5 @@
 import React from "react";
-import { Character } from "../config/rulesets/shadowrun/6e/Character";
+import { Character } from "../Character";
 import { Grid, Paper, Typography } from "@material-ui/core";
 import classes from "*.module.css";
 import SheetTextElement from "./SheetTextElement";

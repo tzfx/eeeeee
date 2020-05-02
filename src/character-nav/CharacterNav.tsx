@@ -59,7 +59,24 @@ class CharacterNav extends React.Component<any, { open: boolean, characters: Cha
     
     constructor() {
         super({});
-        this.state = { open: true, characters: [] }
+        this.state = {
+            open: true,
+            characters: []
+        };
+    }
+    
+    componentDidMount() {
+        let characters: Character[] = [];
+        fetch("http://localhost:3001/api/characters", {mode: "no-cors"})
+            // .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                if (data.body != null) {
+                    characters = data.body as any;
+                }
+               // characters.push(data);
+            });
+        this.setState({characters: characters});
     }
     
     render() {

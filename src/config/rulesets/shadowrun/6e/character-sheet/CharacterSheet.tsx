@@ -1,4 +1,4 @@
-import { Character } from "../config/rulesets/shadowrun/6e/Character";
+import { Character } from "../Character";
 import React from "react";
 import PersonalData from "./PersonalData";
 import { Grid, Paper } from "@material-ui/core";

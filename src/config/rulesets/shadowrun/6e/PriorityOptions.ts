@@ -81,3 +81,6 @@ export interface MagicPriorities {
     Adept: number;
     Technomancer: number;
 };
+
+export const PRIORITY_LETTERS = ["A", "B", "C", "D", "E"];
+export const PRIORITY_TYPES = ["Metatype", "Attributes", "Skills", "Magic", "Resources"];
