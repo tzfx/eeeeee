@@ -1,21 +1,29 @@
-import { FormControl, InputLabel, MenuItem, Select, TextField, Typography, Input, Button, FormLabel, RadioGroup, FormControlLabel, Radio } from '@material-ui/core';
+import { FormControl, InputLabel, MenuItem, Select, TextField, Typography, Input, Button, FormLabel, RadioGroup, FormControlLabel, Radio, makeStyles, withStyles, Grid } from '@material-ui/core';
 import React, { ChangeEvent } from 'react';
 import { CharacterBioBuilder } from '../config/rulesets/shadowrun/6e/CharacterBioBuilder';
 import { Metatypes } from '../config/rulesets/shadowrun/6e/metatype/Metatypes';
 
-import './NewCharacter.css';
+// import './NewCharacter.css';
 import { CharacterBio } from '../config/rulesets/shadowrun/6e/CharacterBio.interface';
 
-interface Props {
-    bioFinished: (bio: CharacterBio) => void
+const styles = {
+    formControl: {
+        minWidth: "170px",
+        paddingLeft: "10px",
+        paddingRight: "10px"
+    }
 }
 
-interface State {
+type Props = {
+    bioFinished: (bio: CharacterBio) => void
+} & any;
+
+type State = {
     bioBuilder: CharacterBioBuilder;
 }
 
 
-export class NewBio extends React.Component<Props, State> {
+class NewBio extends React.Component<Props, State> {
 
     constructor(props: Props) {
         super(props);
@@ -72,22 +80,30 @@ export class NewBio extends React.Component<Props, State> {
   }
 
   render() {
+    const { classes } = this.props;
     return (
         <form className="new-character-form">
-            <TextField className="formControl" id='name' label='Character Name' onChange={this.updateName}/>
-            <TextField className="formControl" id='name' label='Ethnicity' onChange={this.updateEthnicity}/>
-            <FormControl className="formControl">
-                <InputLabel id="demo-simple-select-label">Metatype</InputLabel>
-                <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    value={this.state.bioBuilder.metatype?.name || ""}
-                    onChange={this.updateMeta}
-                >
-                    {Metatypes.types.map(type => <MenuItem key={type.name} value={type.name}>{type.name}</MenuItem>)}
-                </Select>
-            </FormControl>
-            <FormControl className="formControl"
+            <Grid spacing={2}>
+                <Grid item xs={12}>
+                    <TextField className={classes.formControl} id='name' label='Character Name' onChange={this.updateName}/>
+                    <TextField className={classes.formControl} id='name' label='Ethnicity' onChange={this.updateEthnicity}/>
+                </Grid>
+                <Grid item xs={12}>
+                    <FormControl className={classes.formControl}>
+                        <InputLabel id="demo-simple-select-label">Metatype</InputLabel>
+                        <Select
+                            labelId="demo-simple-select-label"
+                            id="demo-simple-select"
+                            value={this.state.bioBuilder.metatype?.name || ""}
+                            onChange={this.updateMeta}
+                        >
+                            {Metatypes.types.map(type => <MenuItem key={type.name} value={type.name}>{type.name}</MenuItem>)}
+                        </Select>
+                    </FormControl>
+                </Grid>
+
+            <Grid item xs={12}>
+            <FormControl className={classes.formControl}
                             component="fieldset">
                 <FormLabel component="legend">Sex</FormLabel>
                 <RadioGroup 
@@ -99,10 +115,10 @@ export class NewBio extends React.Component<Props, State> {
                         <FormControlLabel value={"M"} control={<Radio />} label="Male" />
                 </RadioGroup>
             </FormControl>
-            <FormControl className="formControl">
+            <FormControl className={classes.formControl}>
                 <InputLabel id='age-label'>Age</InputLabel>
                 <Input
-                    className="formControl"
+                    className={classes.formControl}
                     value={this.state.bioBuilder.age}
                     margin="dense"
                     onChange={this.updateAge}
@@ -111,10 +127,10 @@ export class NewBio extends React.Component<Props, State> {
                     }}
                 />
             </FormControl>
-            <FormControl className="formControl">
+            <FormControl className={classes.formControl}>
                 <InputLabel id='height-label'>Height (m)</InputLabel>
                 <Input
-                    className="formControl"
+                    className={classes.formControl}
                     value={this.state.bioBuilder.height}
                     margin="dense"
                     onChange={this.updateHeight}
@@ -127,10 +143,10 @@ export class NewBio extends React.Component<Props, State> {
                     }}
                 />
             </FormControl>
-            <FormControl className="formControl">
+            <FormControl className={classes.formControl}>
                 <InputLabel id='age-label'>Weight (kg)</InputLabel>
                 <Input
-                    className="formControl"
+                    className={classes.formControl}
                     value={this.state.bioBuilder.weight}
                     margin="dense"
                     onChange={this.updateWeight}
@@ -143,7 +159,8 @@ export class NewBio extends React.Component<Props, State> {
                     }}
                 />
             </FormControl>
-            <FormControl className="formControl">
+            </Grid>
+            <FormControl className={classes.formControl}>
                 <Button
                     disabled={!this.state.bioBuilder.isReady()}
                     onClick={this.okBio}
@@ -151,7 +168,10 @@ export class NewBio extends React.Component<Props, State> {
                         Save
                 </Button>
             </FormControl>
+            </Grid>
         </form>
     );
   }
 }
+
+export default withStyles(styles)(NewBio);

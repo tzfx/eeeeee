@@ -96,8 +96,9 @@ export class CharacterBuilder implements Builder<Character> {
         return this;
     }
     
-    setCharacterBio() {
-        
+    setCharacterBio(bio: CharacterBio): CharacterBuilder {
+        this.bio = bio;
+        return this;
     }
     
     build(): Character {

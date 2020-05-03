@@ -5,7 +5,7 @@ import AddBoxIcon from "@material-ui/icons/AddBox";
 import AccessibilityIcon from "@material-ui/icons/Accessibility";
 import { Character } from '../config/rulesets/shadowrun/6e/Character';
 
-const drawerWidth = 240;
+export const drawerWidth = 240;
 
 const useStyles = (theme: Theme) => {
     return {

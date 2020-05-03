@@ -82,5 +82,6 @@ export interface MagicPriorities {
     Technomancer: number;
 };
 
-export const PRIORITY_LETTERS = ["A", "B", "C", "D", "E"];
+export type Letter = "A" | "B" | "C" | "D" | "E"
+export const PRIORITY_LETTERS: Letter[] = ["A", "B", "C", "D", "E"];
 export const PRIORITY_TYPES = ["Metatype", "Attributes", "Skills", "Magic", "Resources"];
