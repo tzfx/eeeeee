@@ -1,36 +1,27 @@
-import { makeStyles } from '@material-ui/core/styles';
 import React from 'react';
 import './App.css';
+import 'semantic-ui-css/semantic.min.css';
+import 'semantic-ui-css/components/icon.min.css';
 import { NewCharacter } from './new-character/NewCharacter';
 import CharacterNav from './character-nav/CharacterNav';
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
-  title: {
-    flexGrow: 1,
-  },
-}));
+class App extends React.Component {
 
-function App() {
-  const classes = useStyles();
-  
-  return (
-    <div className="App">
-      <CharacterNav />
-      <main
-        className="header"
-      >
-        <div className="drawerHeader"/>
-        <NewCharacter />
-      </main>
-      
-    </div>
-  );
+  render() {
+    return (
+      <div className="App">
+        <CharacterNav />
+        <main
+          className="header"
+        >
+          <div className="drawerHeader"/>
+          <NewCharacter />
+        </main>
+        
+      </div>
+    );
+  }
+
 }
 
 export default App;

@@ -1,10 +1,10 @@
-import { FormControl, InputLabel, MenuItem, Select, TextField, Typography, Input, Button, FormLabel, RadioGroup, FormControlLabel, Radio, makeStyles, withStyles, Grid } from '@material-ui/core';
+import { Button, FormControl, FormControlLabel, FormLabel, Grid, Input, InputLabel, MenuItem, Radio, RadioGroup, Select, TextField, withStyles } from '@material-ui/core';
 import React, { ChangeEvent } from 'react';
+// import './NewCharacter.css';
+import { CharacterBio } from '../config/rulesets/shadowrun/6e/CharacterBio.interface';
 import { CharacterBioBuilder } from '../config/rulesets/shadowrun/6e/CharacterBioBuilder';
 import { Metatypes } from '../config/rulesets/shadowrun/6e/metatype/Metatypes';
 
-// import './NewCharacter.css';
-import { CharacterBio } from '../config/rulesets/shadowrun/6e/CharacterBio.interface';
 
 const styles = {
     formControl: {

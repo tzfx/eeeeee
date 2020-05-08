@@ -1,6 +1,7 @@
-import React, { CSSProperties } from "react";
-import { PriorityList, PRIORITY_LETTERS, PRIORITY_TYPES, PriorityOptions, Letter } from "../config/rulesets/shadowrun/6e/PriorityOptions";
-import { TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody, Theme, withStyles, Typography } from "@material-ui/core";
+import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Theme, withStyles } from "@material-ui/core";
+import React from "react";
+import { Button, Icon } from "semantic-ui-react";
+import { Letter, MagicPriorities, PriorityOptions, PRIORITY_LETTERS, PRIORITY_TYPES } from "../config/rulesets/shadowrun/6e/PriorityOptions";
 
 
 const useStyles = (theme: Theme) => {
@@ -19,21 +20,45 @@ const useStyles = (theme: Theme) => {
 };
 
 type Props = {
-    prioritiesFinished: (_: PriorityList) => void
+    prioritiesFinished: (_: State) => void
 } & any;
 
-type State = {
-    Metatype: number,
-    Attributes: number,
-    Magic: any,
-    Skills: number,
-    Resources: number
+export type State = {
+    Metatype?: PrioritySelection,
+    Attributes?: PrioritySelection,
+    Magic?: PrioritySelection,
+    Skills?: PrioritySelection,
+    Resources?: PrioritySelection
+};
+
+export type PrioritySelection = {
+    rank: Letter,
+    value: number | MagicPriorities
 };
 
 class NewPriorities extends React.Component<Props, State> {
     
     constructor(props: any) {
         super(props);
+        this.state = {};
+    }
+    
+    isInvalid = () => {
+        const ranks = new Set();
+        Object.values(this.state)
+        .forEach(
+            (val: any) => {
+                if (ranks.has(val.rank)) {
+                    return true;
+                }
+                ranks.add(val.rank);
+            }
+        );
+        return ranks.size !== 5;
+    }
+    
+    generatePriorities = () => {
+        this.props.prioritiesFinished(this.state);
     }
     
     selectPriority = (type: string, letter: Letter) => {
@@ -43,9 +68,11 @@ class NewPriorities extends React.Component<Props, State> {
             case "Attributes":
             case "Skills":
             case "Resources":
-            case "Magic": state[type] = PriorityOptions[type][letter];
+            case "Magic": state[type] = {
+                rank: letter,
+                value: PriorityOptions[type][letter]
+            };
         }
-        console.log(state);
         this.setState(state);
     }
     
@@ -53,12 +80,11 @@ class NewPriorities extends React.Component<Props, State> {
         const { classes } = this.props;
         return (
             <TableContainer component={Paper}>
-                <Typography variant="h2">Select Priorities</Typography>
                 <Table className={classes.priorityTable} aria-label="simple table">
                     <TableHead>
                     <TableRow>
                         <TableCell></TableCell>
-                        {PRIORITY_TYPES.map(k => (<TableCell align="right">{k}</TableCell>))}
+                        {PRIORITY_TYPES.map(k => (<TableCell key={k} align="right">{k}</TableCell>))}
                     </TableRow>
                     </TableHead>
                     <TableBody>
@@ -76,7 +102,7 @@ class NewPriorities extends React.Component<Props, State> {
                                       onClick={() => this.selectPriority(k, letter)}
                                       className={                                         [
                                         classes.priorityCell,
-                                        (this.state as any)?.[k] === (PriorityOptions as any)[k][letter] ? classes.selectedCell : false
+                                        (this.state as any)[k]?.value === (PriorityOptions as any)[k][letter] ? classes.selectedCell : false
                                       ].filter(Boolean)
                                       .join(" ")}
                                       align="right">
@@ -93,7 +119,7 @@ class NewPriorities extends React.Component<Props, State> {
                                       className={
                                           [
                                             classes.priorityCell,
-                                            (this.state as any)?.[k] === (PriorityOptions as any)[k][letter] ? classes.selectedCell : false
+                                            (this.state as any)[k]?.value === (PriorityOptions as any)[k][letter] ? classes.selectedCell : false
                                           ].filter(Boolean)
                                           .join(" ")
                                         }
@@ -110,6 +136,9 @@ class NewPriorities extends React.Component<Props, State> {
                     ))}
                     </TableBody>
                 </Table>
+                <Button icon disabled={this.isInvalid()} onClick={() => this.generatePriorities()}>
+                    <Icon icon="minus-circle"></Icon>
+                </Button>
             </TableContainer>
         )
     }

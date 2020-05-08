@@ -15,6 +15,10 @@ export class TwoWayIterator<T> {
         return (this.contents[this.index + 1] != null);
     }
     
+    public current(): T {
+        return this.contents[this.index];
+    }
+    
     public next(): T {
         if (this.hasNext()) {
             return this.contents[++this.index];
