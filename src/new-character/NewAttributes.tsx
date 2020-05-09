@@ -54,7 +54,7 @@ class NewAttributes extends React.Component<Props, State> {
             builder: this.state.builder.set(attribute, rating),
             totalPoints: this.state.totalPoints - delta
         });
-        this.props.attributesFinished(this.state.builder.isReady() ? this.state.builder.build() : undefined)
+        this.props.attributesFinished((this.state.totalPoints - delta) === 0 && this.state.builder.isReady() ? this.state.builder.build() : undefined)
     }
     
     render() {
@@ -67,6 +67,18 @@ class NewAttributes extends React.Component<Props, State> {
                 ( {this.props.priority.Attributes?.value} Attributes, {this.props.priority.Metatype?.value} Adjustment)
             </h4>
             {this.attributeOptions.map(option =>
+                (
+                <div key={option}>
+                    <table className="ui fixed definition table">
+                        <tbody>
+                            <AttributeRater metatype={this.props.metatype} pointsAllowed={this.state.totalPoints} attributeName={option} changed={(attribute, rating, delta) => this.handleChanged(attribute, rating, delta)}></AttributeRater>
+                        </tbody>
+                    </table>
+                </div>
+                )
+            )}
+            <br />
+            {this.specialAttributeOptions.map(option =>
                 (
                 <div key={option}>
                     <table className="ui fixed definition table">

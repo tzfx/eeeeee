@@ -8,6 +8,7 @@ import { TwoWayIterator } from '../util/TwoWayIterator.class';
 import NewAttributes from './NewAttributes';
 import NewBio from './NewBio';
 import NewPriorities, { State as PriorityState } from './NewPriorities';
+import { Skill } from '../config/rulesets/shadowrun/6e/skills/Skill.interface';
 
 
 type Progress = "bio" | "priorities" | "attributes" | "skills" | "qualities" | "summary";
@@ -16,6 +17,7 @@ interface State {
     bio?: CharacterBio,
     priorities?: PriorityState,
     attributes?: Attributes,
+    skills?: Skill[],
     progress: Progress
 }
 
@@ -36,7 +38,6 @@ export class NewCharacter extends React.Component<{}, State> {
             "summary"
         ]);
         this.state = {progress: this.progression.next() };
-        console.log(this.state);
     }
     
     handleBioFinished = (bio: CharacterBio) => {
@@ -52,6 +53,10 @@ export class NewCharacter extends React.Component<{}, State> {
     handleAttributesFinished = (attrs: Attributes | undefined) => {
         console.log("att", attrs);
         this.setState({attributes: attrs});
+    }
+    
+    handleSkillsFinished = (skills: Skill[]) => {
+        this.setState({skills});
     }
     
     saveAndExit = () => {
@@ -76,8 +81,9 @@ export class NewCharacter extends React.Component<{}, State> {
             case "bio": complete = (this.state.bio != null); break;
             case "priorities": complete = (this.state.priorities != null); break;
             case "attributes": complete = (this.state.attributes != null); break;
+            case "skills": complete = (this.state.skills != null); break;
         }
-        return complete ? "complete" : "";
+        return complete ? "completed" : "";
     }
     
     
@@ -135,6 +141,24 @@ export class NewCharacter extends React.Component<{}, State> {
                     Save & Continue to Skills <ChevronRightIcon />
                 </Button>
             </div>
+            ; break;
+        case "skills":
+            currentView =
+            <div>
+                <br />
+                <h2 className="ui horizontal divider header">
+                    <i className="star icon"></i>
+                    Skills
+                </h2>
+                <NewAttributes metatype={(this.state.bio as any)?.metatype} priority={this.state.priorities as any} attributesFinished={this.handleAttributesFinished} />
+                <Button onClick={() => this.goBack()}>
+                    <ChevronLeftIcon /> Back to Attributes
+                </Button>
+                <Button disabled={this.state.attributes == null} onClick={() => this.goNext()}>
+                    Save & Continue to Qualities <ChevronRightIcon />
+                </Button>
+            </div>
+            ; break;
     }
     return (
         <div style={{marginLeft: 240}}>
@@ -156,6 +180,18 @@ export class NewCharacter extends React.Component<{}, State> {
                     <div className="content">
                         <div className="title">Attributes</div>
                         <div className="description">Distribute your attributes points</div>
+                    </div>
+                </div>
+                <div className={`${this.stepCompleted("skills")} ${this.stepActive("skills")} step`}>
+                    <div className="content">
+                        <div className="title">Skills</div>
+                        <div className="description">Learn Skills</div>
+                    </div>
+                </div>
+                <div className={`${this.stepCompleted("qualities")} ${this.stepActive("qualities")} step`}>
+                    <div className="content">
+                        <div className="title">Qualities</div>
+                        <div className="description">Take Qualities</div>
                     </div>
                 </div>
             </div>

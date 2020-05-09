@@ -19,15 +19,14 @@ export class AttributeRater extends React.Component<Props, State> {
     
     constructor(props: Props) {
         super(props);
-        const max = (props.metatype.maxAttributes as any)[props.attributeName];
-        if (max == null) {
-            throw new Error(`Unknown attribute max: ${props.attributeName}`);
-        } else {
-            this.state = {
-                rating: 1,
-                min: 1,
-                max
-            }
+        const max = 
+        props.attributeName === "edge" ?
+            props.metatype.maxEdge :
+            (props.metatype.maxAttributes as any)[props.attributeName];
+        this.state = {
+            rating: 1,
+            min: 1,
+            max: max ?? 6 // Default for magic.
         }
     }
     

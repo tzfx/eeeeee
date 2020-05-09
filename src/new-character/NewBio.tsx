@@ -83,6 +83,7 @@ class NewBio extends React.Component<Props, State> {
     const { classes } = this.props;
     return (
         <form className="new-character-form">
+            <h3><i className="random icon"></i></h3>
             <Grid spacing={2}>
                 <Grid item xs={12}>
                     <TextField className={classes.formControl} id='name' label='Character Name' onChange={this.updateName}/>

@@ -1,23 +1,6 @@
-import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Theme, withStyles } from "@material-ui/core";
 import React from "react";
-import { Button, Icon } from "semantic-ui-react";
 import { Letter, MagicPriorities, PriorityOptions, PRIORITY_LETTERS, PRIORITY_TYPES } from "../config/rulesets/shadowrun/6e/PriorityOptions";
 
-
-const useStyles = (theme: Theme) => {
-    return {
-        priorityTable: {
-            width: "max-content",
-            margin: "auto"
-        },
-        priorityCell: {
-            cursor: "pointer"
-        },
-        selectedCell: {
-            backgroundColor: "grey"
-        }
-    }
-};
 
 type Props = {
     prioritiesFinished: (_: State) => void
@@ -43,7 +26,7 @@ class NewPriorities extends React.Component<Props, State> {
         this.state = {};
     }
     
-    isInvalid = () => {
+    isInvalid = (): boolean => {
         const ranks = new Set();
         Object.values(this.state)
         .forEach(
@@ -73,76 +56,62 @@ class NewPriorities extends React.Component<Props, State> {
                 value: PriorityOptions[type][letter]
             };
         }
-        this.setState(state);
+        this.setState(state, () => this.props.prioritiesFinished(this.isInvalid() ? undefined : this.state));
     }
     
     render() {
-        const { classes } = this.props;
         return (
-            <TableContainer component={Paper}>
-                <Table className={classes.priorityTable} aria-label="simple table">
-                    <TableHead>
-                    <TableRow>
-                        <TableCell></TableCell>
-                        {PRIORITY_TYPES.map(k => (<TableCell key={k} align="right">{k}</TableCell>))}
-                    </TableRow>
-                    </TableHead>
-                    <TableBody>
+            <div className="ui container">
+                <table className="ui definition celled table">
+                    <thead>
+                        <tr>
+                            <th>Priority</th>
+                            {PRIORITY_TYPES.map(k => (<th key={k}>{k}</th>))}
+                        </tr>
+                    </thead>
+                    <tbody>
                     {PRIORITY_LETTERS.map((letter) => (
-                        <TableRow key={letter}>
-                        <TableCell component="th" scope="row">
-                            {letter}
-                        </TableCell>
-                        {
-                            PRIORITY_TYPES.map(k => {
-                                if (k === "Magic") {
+                        <tr key={letter}>
+                            <td>
+                                {letter}
+                            </td>
+                            {
+                                PRIORITY_TYPES.map(k => {
+                                    if (k === "Magic") {
+                                        return (
+                                        <td
+                                        id={`${k}:${letter}`}
+                                        onClick={() => this.selectPriority(k, letter)}
+                                        className={(this.state as any)[k]?.value === (PriorityOptions as any)[k][letter] ? "positive" : ""}
+                                        align="right">
+                                            {
+                                            Object.entries((PriorityOptions as any)[k][letter]).map( (v) => {
+                                                return `${v.join(": ")}`
+                                            }).join(", ")
+                                            }
+                                        </td>
+                                        )
+                                    }
                                     return (
-                                    <TableCell
-                                      id={`${k}:${letter}`}
-                                      onClick={() => this.selectPriority(k, letter)}
-                                      className={                                         [
-                                        classes.priorityCell,
-                                        (this.state as any)[k]?.value === (PriorityOptions as any)[k][letter] ? classes.selectedCell : false
-                                      ].filter(Boolean)
-                                      .join(" ")}
-                                      align="right">
-                                        {
-                                        Object.entries((PriorityOptions as any)[k][letter]).map( (v) => {
-                                            return `${v.join(": ")}`
-                                        }).join(", ")
-                                        }
-                                    </TableCell>
+                                        <td id={`${k}:${letter}`}
+                                        className={(this.state as any)[k]?.value === (PriorityOptions as any)[k][letter] ? "positive" : ""}
+                                        onClick={() => this.selectPriority(k, letter)}
+                                        align="right">
+                                            {
+                                            (PriorityOptions as any)[k][letter]
+                                            }
+                                        </td>
                                     )
-                                }
-                                return (
-                                    <TableCell id={`${k}:${letter}`}
-                                      className={
-                                          [
-                                            classes.priorityCell,
-                                            (this.state as any)[k]?.value === (PriorityOptions as any)[k][letter] ? classes.selectedCell : false
-                                          ].filter(Boolean)
-                                          .join(" ")
-                                        }
-                                      onClick={() => this.selectPriority(k, letter)}
-                                      align="right">
-                                          {
-                                          (PriorityOptions as any)[k][letter]
-                                          }
-                                    </TableCell>
-                                )
-                            })
-                        }
-                        </TableRow>
+                                })
+                            }
+                        </tr>
                     ))}
-                    </TableBody>
-                </Table>
-                <Button icon disabled={this.isInvalid()} onClick={() => this.generatePriorities()}>
-                    <Icon icon="minus-circle"></Icon>
-                </Button>
-            </TableContainer>
-        )
+                    </tbody>
+                </table>
+            </div>
+        );
     }
     
 }
 
-export default withStyles(useStyles)(NewPriorities);
+export default NewPriorities;
