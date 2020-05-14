@@ -1,24 +1,22 @@
-import { Button, FormControl, FormControlLabel, FormLabel, Grid, Input, InputLabel, MenuItem, Radio, RadioGroup, Select, TextField, withStyles } from '@material-ui/core';
 import React, { ChangeEvent } from 'react';
-// import './NewCharacter.css';
+import { Select } from 'semantic-ui-react';
 import { CharacterBio } from '../config/rulesets/shadowrun/6e/CharacterBio.interface';
 import { CharacterBioBuilder } from '../config/rulesets/shadowrun/6e/CharacterBioBuilder';
 import { Metatypes } from '../config/rulesets/shadowrun/6e/metatype/Metatypes';
 
-
-const styles = {
-    formControl: {
-        minWidth: "170px",
-        paddingLeft: "10px",
-        paddingRight: "10px"
-    }
-}
 
 type Props = {
     bioFinished: (bio: CharacterBio) => void
 } & any;
 
 type State = {
+    name?: string,
+    ethnicity?: string,
+    sex?: "M" |"F",
+    age?: number,
+    height?: number,
+    weight?: number,
+    metatype?: string,
     bioBuilder: CharacterBioBuilder;
 }
 
@@ -32,147 +30,134 @@ class NewBio extends React.Component<Props, State> {
         };
     }
     
-    okBio = (event: ChangeEvent<any>) => {
-        this.props.bioFinished(this.state.bioBuilder.build());
+    checkIfDone() {
+        this.props.bioFinished(this.state.bioBuilder.isReady() ? this.state.bioBuilder.build() : undefined);
     }
     
-    updateMeta = (event: ChangeEvent<any>) => {
-      const type = Metatypes.types.find(t => t.name === event.target?.value);
+    updateMeta = (value: string) => {
+      const type = Metatypes.types.find(t => t.name === value);
       if (type !== undefined) {
         this.setState({bioBuilder: this.state.bioBuilder.setMetatype(type).setHeight(type.averageHeight).setWeight(type.averageWeight)});
       }
+      this.checkIfDone();
     }
   
     updateName = (event: ChangeEvent<any>) => {
         if (event.target?.value !== undefined) {
             this.setState({bioBuilder: this.state.bioBuilder.setName(event.target.value)});
         }
+        this.checkIfDone();
     }
   
     updateEthnicity = (event: ChangeEvent<any>) => {
         if (event.target?.value !== undefined) {
             this.setState({bioBuilder: this.state.bioBuilder.setEthnicity(event.target.value)});
         }
+        this.checkIfDone();
     }
   
-  updateSex = (event: ChangeEvent<any>) => {
-    if (event.target?.value !== undefined) {
-        this.setState({bioBuilder: this.state.bioBuilder.setSex(event.target.value)});
+  updateSex = (_: any, element: any) => {
+    if (element.value !== undefined) {
+        this.setState({bioBuilder: this.state.bioBuilder.setSex(element.value)});
     }
+    this.checkIfDone();
   }
   
   updateAge = (event: ChangeEvent<any>) => {
     if (event.target?.value !== undefined) {
         this.setState({bioBuilder: this.state.bioBuilder.setAge(event.target.value)});
     }
+    this.checkIfDone();
   }
   
  updateHeight = (event: ChangeEvent<any>) => {
     if (event.target?.value !== undefined) {
         this.setState({bioBuilder: this.state.bioBuilder.setHeight(event.target.value)});
     }
+    this.checkIfDone();
   }
   
   updateWeight = (event: ChangeEvent<any>) => {
     if (event.target?.value !== undefined) {
         this.setState({bioBuilder: this.state.bioBuilder.setWeight(event.target.value)});
     }
+    this.checkIfDone();
   }
 
   render() {
-    const { classes } = this.props;
     return (
-        <form className="new-character-form">
+        <div>
             <h3><i className="random icon"></i></h3>
-            <Grid spacing={2}>
-                <Grid item xs={12}>
-                    <TextField className={classes.formControl} id='name' label='Character Name' onChange={this.updateName}/>
-                    <TextField className={classes.formControl} id='name' label='Ethnicity' onChange={this.updateEthnicity}/>
-                </Grid>
-                <Grid item xs={12}>
-                    <FormControl className={classes.formControl}>
-                        <InputLabel id="demo-simple-select-label">Metatype</InputLabel>
+            <form className="ui form container">
+                <div className="two fields">
+                    <div className="field">
+                        <label>
+                            Name
+                        </label>
+                        <input type="text" placeholder="Name" onChange={this.updateName} value={this.state.name}/>
+                    </div>
+                    <div className="field">
+                        <label>
+                            Ethnicity
+                        </label>
+                        <input type="text" placeholder="Ethnicity" onChange={this.updateEthnicity} value={this.state.ethnicity} />
+                    </div>
+                </div>
+                <div className="two fields">
+                    <div className="field">
+                        <label>
+                            Metatype
+                        </label>
                         <Select
-                            labelId="demo-simple-select-label"
-                            id="demo-simple-select"
-                            value={this.state.bioBuilder.metatype?.name || ""}
-                            onChange={this.updateMeta}
+                         compact
+                         placeholder="Metatype"
+                         onChange={(_, {value}) => { this.updateMeta(value as string) }} 
+                         options={
+                             Metatypes.types.map(type => {
+                                return {
+                                    key: type.name,
+                                    value: type.name,
+                                    text: type.name
+                                }
+                             })
+                         }
                         >
-                            {Metatypes.types.map(type => <MenuItem key={type.name} value={type.name}>{type.name}</MenuItem>)}
                         </Select>
-                    </FormControl>
-                </Grid>
-
-            <Grid item xs={12}>
-            <FormControl className={classes.formControl}
-                            component="fieldset">
-                <FormLabel component="legend">Sex</FormLabel>
-                <RadioGroup 
-                    aria-label="sex"
-                    name="sex"
-                    value={this.state.bioBuilder.sex}
-                    onChange={this.updateSex}>
-                        <FormControlLabel value={"F"} control={<Radio />} label="Female"/>
-                        <FormControlLabel value={"M"} control={<Radio />} label="Male" />
-                </RadioGroup>
-            </FormControl>
-            <FormControl className={classes.formControl}>
-                <InputLabel id='age-label'>Age</InputLabel>
-                <Input
-                    className={classes.formControl}
-                    value={this.state.bioBuilder.age}
-                    margin="dense"
-                    onChange={this.updateAge}
-                    inputProps={{
-                        type: 'number'
-                    }}
-                />
-            </FormControl>
-            <FormControl className={classes.formControl}>
-                <InputLabel id='height-label'>Height (m)</InputLabel>
-                <Input
-                    className={classes.formControl}
-                    value={this.state.bioBuilder.height}
-                    margin="dense"
-                    onChange={this.updateHeight}
-                    onBlur={this.updateHeight}
-                    inputProps={{
-                        step: .01,
-                        min: 1,
-                        max: 2,
-                        type: 'number'
-                    }}
-                />
-            </FormControl>
-            <FormControl className={classes.formControl}>
-                <InputLabel id='age-label'>Weight (kg)</InputLabel>
-                <Input
-                    className={classes.formControl}
-                    value={this.state.bioBuilder.weight}
-                    margin="dense"
-                    onChange={this.updateWeight}
-                    onBlur={this.updateWeight}
-                    inputProps={{
-                        step: 10,
-                        min: 30,
-                        max: 500,
-                        type: 'number'
-                    }}
-                />
-            </FormControl>
-            </Grid>
-            <FormControl className={classes.formControl}>
-                <Button
-                    disabled={!this.state.bioBuilder.isReady()}
-                    onClick={this.okBio}
-                >
-                        Save
-                </Button>
-            </FormControl>
-            </Grid>
-        </form>
+                    </div>
+                    <div className="field">
+                        <label>Sex</label>
+                        <Select
+                         compact
+                         placeholder="Sex"
+                         options={[{key: "M", value: "M", text: "Male"}, {key: "F", value: "F", text: "Female"}]}
+                         onChange={this.updateSex}>
+                        </Select>
+                    </div>
+                </div>
+                <div className="three fields">
+                    <div className="field">
+                        <label>
+                            Age
+                        </label>
+                        <input type="number" min="18" placeholder="Age" onChange={this.updateAge} value={this.state.bioBuilder.age} />
+                    </div>
+                    <div className="field">
+                        <label>
+                            Weight (kg)
+                        </label>
+                        <input type="number" min="20" placeholder="Weight" onChange={this.updateWeight} value={this.state.bioBuilder.weight} />
+                    </div>
+                    <div className="field">
+                        <label>
+                            Height (m)
+                        </label>
+                        <input type="number" min="1.0" placeholder="Height" onChange={this.updateHeight} value={this.state.bioBuilder.height} />
+                    </div>
+                </div>
+            </form>
+        </div>
     );
   }
 }
 
-export default withStyles(styles)(NewBio);
+export default NewBio;

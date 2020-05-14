@@ -48,13 +48,14 @@ export class CharacterBioBuilder implements Builder<CharacterBio> {
     }
     
     isReady() {
-        return (this.name &&
-            this.metatype &&
-            this.ethnicity &&
-            this.age &&
-            this.sex &&
-            this.height &&
-            this.weight
+        console.log(this);
+        return (this.name != null &&
+            this.metatype != null &&
+            this.ethnicity != null &&
+            this.age != null &&
+            this.sex != null &&
+            this.height != null &&
+            this.weight != null
             );
     }
     

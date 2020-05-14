@@ -2,6 +2,7 @@ import { Builder } from "../../../../util/Builder.interface";
 import { Metatype } from "./metatype/Metatype.interface";
 
 import { PrioritySelection } from '../../../../new-character/NewPriorities';
+import { propertiesOf } from "../../../../util/ObjectUtils";
 
 export class Attributes {
     body: number;
@@ -93,7 +94,22 @@ export class AttributesBuilder implements Builder<Attributes> {
         return this;
     }
     
+
+    
+    checkMaxes() {
+        const properties = propertiesOf<AttrName>();
+        console.log("P", properties);
+        // const maxes = [];
+        // properties.some((attribute: AttrName) => {
+        //     if (this[attribute] === this.metatype.maxAttributes[attribute]) {
+        //         maxes.push(attribute);
+        //     }
+        //     return maxes.length > 1;
+        // });
+    }
+    
     isReady(): boolean {
+        this.checkMaxes();
         return  this.body != null &&
                 this.agility != null &&
                 this.reaction != null &&
