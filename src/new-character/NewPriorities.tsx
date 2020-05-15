@@ -81,6 +81,7 @@ class NewPriorities extends React.Component<Props, State> {
                                         return (
                                         <td
                                         id={`${k}:${letter}`}
+                                        key={`${k}:${letter}`}
                                         onClick={() => this.selectPriority(k, letter)}
                                         className={(this.state as any)[k]?.value === (PriorityOptions as any)[k][letter] ? "positive" : ""}
                                         align="right">
@@ -93,7 +94,9 @@ class NewPriorities extends React.Component<Props, State> {
                                         )
                                     }
                                     return (
-                                        <td id={`${k}:${letter}`}
+                                        <td
+                                        id={`${k}:${letter}`}
+                                        key={`${k}:${letter}`}
                                         className={(this.state as any)[k]?.value === (PriorityOptions as any)[k][letter] ? "positive" : ""}
                                         onClick={() => this.selectPriority(k, letter)}
                                         align="right">

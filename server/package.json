@@ -6,7 +6,7 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "tsc && nodemon dist/server.js"
+    "start": "tsc && nodemon dist/Application.js"
   },
   "author": "",
   "license": "ISC",
@@ -15,7 +15,9 @@
     "@types/leveldown": "^4.0.2",
     "@types/levelup": "^4.3.0",
     "@types/node": "^13.13.4",
+    "body-parser": "^1.19.0",
     "express": "^4.17.1",
+    "level": "^6.0.1",
     "leveldown": "^5.6.0",
     "levelup": "^4.4.0",
     "nodemon": "^2.0.3",

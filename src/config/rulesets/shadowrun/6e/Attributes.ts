@@ -2,7 +2,6 @@ import { Builder } from "../../../../util/Builder.interface";
 import { Metatype } from "./metatype/Metatype.interface";
 
 import { PrioritySelection } from '../../../../new-character/NewPriorities';
-import { propertiesOf } from "../../../../util/ObjectUtils";
 
 export class Attributes {
     body: number;
@@ -62,8 +61,28 @@ export type AttrName =
     "charisma" |
     "edge" |
     "magic";
+    
+export const ATTRIBUTE_OPTIONS: AttrName[] = [
+    "body",
+    "agility",
+    "reaction",
+    "strength",
+    "willpower",
+    "logic",
+    "intuition",
+    "charisma"
+];
+
+export const SPECIAL_ATTRIBUTE_OPTIONS: AttrName[] = [
+    "edge",
+    "magic"
+];
+
+export const ALL_ATTRIBUTES = ATTRIBUTE_OPTIONS.concat(SPECIAL_ATTRIBUTE_OPTIONS);
 
 export class AttributesBuilder implements Builder<Attributes> {
+    
+    error: string = '';
     
     metatype: Metatype;
     priority: PrioritySelection;
@@ -94,32 +113,39 @@ export class AttributesBuilder implements Builder<Attributes> {
         return this;
     }
     
-
+    increment(attribute: AttrName): AttributesBuilder {
+        const attr = this[attribute] || 1;
+        this[attribute] = attr + 1;
+        return this;
+    }
     
-    checkMaxes() {
-        const properties = propertiesOf<AttrName>();
-        console.log("P", properties);
-        // const maxes = [];
-        // properties.some((attribute: AttrName) => {
-        //     if (this[attribute] === this.metatype.maxAttributes[attribute]) {
-        //         maxes.push(attribute);
-        //     }
-        //     return maxes.length > 1;
-        // });
+    decrement(attribute: AttrName): AttributesBuilder {
+        const attr = this[attribute] || 1;
+        this[attribute] = attr - 1;
+        return this;
+    }
+
+    areMaxesInError(): boolean {
+        // FIXME: Detection is a point behind? State issues?
+        const maxes: AttrName[] = [];
+        return ALL_ATTRIBUTES
+                .some((attribute: AttrName) => {
+                    if (this[attribute] === this.metatype.maxAttributes[attribute]) {
+                        maxes.push(attribute);
+                        console.log(maxes);
+                    }
+                    this.error = maxes.length > 1 ? `Two attributes [${maxes.join(",")}] cannot be set to racial max during character creation.` : '';
+                    return maxes.length > 1;
+                });
     }
     
     isReady(): boolean {
-        this.checkMaxes();
-        return  this.body != null &&
-                this.agility != null &&
-                this.reaction != null &&
-                this.strength != null &&
-                this.willpower != null &&
-                this.logic != null &&
-                this.intuition != null &&
-                this.charisma != null &&
-                this.edge != null &&
-                this.magic != null
+        this.error = '';
+        return ALL_ATTRIBUTES
+                .every((attr) => {
+                    return this[attr] != null
+                }) &&
+                !this.areMaxesInError()
     }
     
     build(): Attributes {

@@ -9,6 +9,7 @@ import NewAttributes from './NewAttributes';
 import NewBio from './NewBio';
 import NewPriorities, { State as PriorityState } from './NewPriorities';
 import { Skill } from '../config/rulesets/shadowrun/6e/skills/Skill.interface';
+import { CharacterService } from '../api/CharacterService';
 
 
 type Progress = "bio" | "priorities" | "attributes" | "skills" | "qualities" | "summary";
@@ -21,13 +22,17 @@ interface State {
     progress: Progress
 }
 
+interface Props {
+    newCharacterCreated: () => void
+}
 
-export class NewCharacter extends React.Component<{}, State> {
+
+export class NewCharacter extends React.Component<Props, State> {
     
     private progression: TwoWayIterator<Progress>;
     
 
-    constructor(props: any) {
+    constructor(props: Props) {
         super(props);
         this.progression = new TwoWayIterator([
             "bio",
@@ -41,17 +46,14 @@ export class NewCharacter extends React.Component<{}, State> {
     }
     
     handleBioFinished = (bio: CharacterBio) => {
-        console.log("Received new bio:", bio);
         this.setState({bio: bio});
     }
     
     handlePrioritiesFinished = (prios: any) => {
-        console.log("Received new prios:", prios);
         this.setState({priorities: prios});
     }
     
     handleAttributesFinished = (attrs: Attributes | undefined) => {
-        console.log("att", attrs);
         this.setState({attributes: attrs});
     }
     
@@ -103,7 +105,15 @@ export class NewCharacter extends React.Component<{}, State> {
                 <Button onClick={() => this.saveAndExit()}>
                     <ChevronLeftIcon /> Exit 
                 </Button>
-                <Button disabled={this.state.bio == null} onClick={() => this.goNext()}>
+                <Button
+                    disabled={this.state.bio == null}
+                    onClick={
+                        () => {
+                            CharacterService.createCharacter(this.state.bio as CharacterBio)
+                                .then(() => this.props.newCharacterCreated());
+                            this.goNext();
+                        }
+                    }>
                     Save & Continue to Priorities <ChevronRightIcon />
                 </Button>
             </div>

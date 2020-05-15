@@ -31,13 +31,18 @@ export class AttributeRater extends React.Component<Props, State> {
     }
     
     private handleDown = () => {
-        this.setState({ rating: this.state.rating - 1 });
-        this.props.changed(this.props.attributeName, this.state.rating, -1);
+        this.setState({ rating: this.state.rating - 1 },
+            () => {
+                this.props.changed(this.props.attributeName, this.state.rating, -1);
+            });
+
     }
     
     private handleUp = () => {
-        this.setState({ rating: this.state.rating + 1});
-        this.props.changed(this.props.attributeName, this.state.rating, 1);
+        this.setState({ rating: this.state.rating + 1},
+            () => {
+                this.props.changed(this.props.attributeName, this.state.rating, 1);
+            });
     }
     
     render() {

@@ -3,7 +3,7 @@ import { Drawer, Divider, List, ListItem, ListItemIcon, ListItemText, Theme, wit
 import FingerprintIcon from "@material-ui/icons/Fingerprint";
 import AddBoxIcon from "@material-ui/icons/AddBox";
 import AccessibilityIcon from "@material-ui/icons/Accessibility";
-import { Character } from '../config/rulesets/shadowrun/6e/Character';
+import { CharacterBio } from '../config/rulesets/shadowrun/6e/CharacterBio.interface';
 
 export const drawerWidth = 240;
 
@@ -55,30 +55,21 @@ const useStyles = (theme: Theme) => {
     };
 };
 
-class CharacterNav extends React.Component<any, { open: boolean, characters: Character[] }> {
+type Props = {
+    characters: CharacterBio[]
+} & any;
+
+class CharacterNav extends React.Component<Props, { open: boolean, characters: CharacterBio[] }> {
     
-    constructor() {
-        super({});
+    constructor(props: Props) {
+        super(props);
         this.state = {
             open: true,
-            characters: []
+            characters: props.characters
         };
     }
-    
-    componentDidMount() {
-        let characters: Character[] = [];
-        fetch("http://localhost:3001/api/characters", {mode: "no-cors"})
-            // .then(res => res.json())
-            .then(data => {
-                console.log(data);
-                if (data.body != null) {
-                    characters = data.body as any;
-                }
-               // characters.push(data);
-            });
-        this.setState({characters: characters});
-    }
-    
+
+
     render() {
         const { classes } = this.props;
         return (
@@ -102,10 +93,10 @@ class CharacterNav extends React.Component<any, { open: boolean, characters: Cha
                 </ListItem>
             </List>
             <Divider />
-            { this.state.characters.map(char => (
+            { this.props.characters.map((char: CharacterBio) => (
                 <ListItem>
                     <ListItemIcon><AccessibilityIcon></AccessibilityIcon></ListItemIcon>
-                    <ListItemText primary={char.bio.name}></ListItemText>
+                    <ListItemText primary={char.name}></ListItemText>
                 </ListItem>
             ))}
           </Drawer>
