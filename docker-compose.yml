@@ -1,0 +1,17 @@
+---
+version: "3.8"
+services:
+    react:
+        build: .
+        image: rpgme-ui
+        networks:
+            - rpgme
+
+    api:
+        build: ./server
+        image: rpgme-api
+        networks:
+            - rpgme
+
+networks:
+    rpgme:
