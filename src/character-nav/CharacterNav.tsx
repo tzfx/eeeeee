@@ -1,107 +1,130 @@
 import React from 'react';
-import { Drawer, Divider, List, ListItem, ListItemIcon, ListItemText, Theme, withStyles } from '@material-ui/core';
-import FingerprintIcon from "@material-ui/icons/Fingerprint";
-import AddBoxIcon from "@material-ui/icons/AddBox";
-import AccessibilityIcon from "@material-ui/icons/Accessibility";
 import { CharacterBio } from '../config/rulesets/shadowrun/6e/CharacterBio.interface';
+import { Input, Sidebar, Item, Icon, List, Button, Message, ItemExtra, ButtonGroup} from 'semantic-ui-react';
 
 export const drawerWidth = 240;
 
-const useStyles = (theme: Theme) => {
-    return {
-        root: {
-        display: 'flex',
-        },
-        branding: {
-            height: 64
-        },
-        menuButton: {
-        marginRight: theme.spacing(2),
-        },
-        hide: {
-        display: 'none',
-        },
-        drawer: {
-        width: drawerWidth,
-        flexShrink: 0,
-        },
-        drawerPaper: {
-        width: drawerWidth,
-        },
-        drawerHeader: {
-        display: 'flex',
-        alignItems: 'center',
-        padding: theme.spacing(0, 1),
-        // necessary for content to be below app bar
-        ...theme.mixins.toolbar,
-        justifyContent: 'flex-end',
-        },
-        content: {
-        flexGrow: 1,
-        padding: theme.spacing(3),
-        transition: theme.transitions.create('margin', {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.leavingScreen,
-        }),
-        marginLeft: -drawerWidth,
-        },
-        contentShift: {
-        transition: theme.transitions.create('margin', {
-            easing: theme.transitions.easing.easeOut,
-            duration: theme.transitions.duration.enteringScreen,
-        }),
-        marginLeft: 0,
-        },
-    };
+
+type Section = "home" | "new" | "shop" | "sheet" | "play";
+
+export type NavSection = {
+  character?: CharacterBio,
+  section: Section
 };
 
-type Props = {
-    characters: CharacterBio[]
-} & any;
 
-class CharacterNav extends React.Component<Props, { open: boolean, characters: CharacterBio[] }> {
+type Props = {
+    characters: CharacterBio[],
+    loading: boolean,
+    changeSection: (newNav: NavSection) => void,
+    active: NavSection
+};
+
+
+type State = {
+    open: boolean,
+    filteredCharacters: CharacterBio[],
+    searchInput?: string
+}
+class CharacterNav extends React.Component<Props, State> {
     
     constructor(props: Props) {
         super(props);
         this.state = {
             open: true,
-            characters: props.characters
+            filteredCharacters: this.props.characters,
+            searchInput: ""
         };
     }
 
+    doSearch(event: React.ChangeEvent<HTMLInputElement>) {
+        const input = event.target;
+        this.setState({
+            searchInput: input.value
+        }, () => {
+            this.setState({
+                filteredCharacters: (input.value as string !== "") ? this.props.characters.filter((char: CharacterBio) => char.name.toLowerCase().startsWith((input.value as string).toLowerCase())) : this.props.characters
+            });
+        });
+    }
+
+    componentDidUpdate(prevProps: Props) {
+        // Initial load from API.
+        if (prevProps.loading && !this.props.loading)
+            this.setState({
+                filteredCharacters: this.props.characters
+            });
+    }
 
     render() {
-        const { classes } = this.props;
         return (
-            <Drawer
-            className={classes.drawer}
-            variant="persistent"
-            anchor="left"
-            open={this.state.open}
-            classes={{
-              paper: classes.drawerPaper,
-            }}
-          >
-            <div className={classes.branding}>
-                <FingerprintIcon fontSize="large"/>
-            </div>
-            <Divider />
-            <List>
-                <ListItem button key="new">
-                  <ListItemIcon><AddBoxIcon /></ListItemIcon>
-                  <ListItemText primary="New Character" />
-                </ListItem>
-            </List>
-            <Divider />
-            { this.props.characters.map((char: CharacterBio) => (
-                <ListItem>
-                    <ListItemIcon><AccessibilityIcon></AccessibilityIcon></ListItemIcon>
-                    <ListItemText primary={char.name}></ListItemText>
-                </ListItem>
-            ))}
-          </Drawer>
+              <Sidebar visible direction="left">
+                <br />
+                <Item>
+                    <Icon name="chess queen" size="big" />
+                    <Item.Header>
+                        EEEEEE
+                    </Item.Header>
+                </Item>
+                <hr />
+                <List divided>
+                    <List.Item >
+                        <List.Content>
+                            <Button onClick={() => this.props.changeSection({section: "new"})}>
+                                <List.Header>
+                                    <Icon name="add square" />
+                                    Create a new character
+                                </List.Header>
+                            </Button>
+                        </List.Content>
+                    </List.Item>
+                    <br />
+                    <List.Item>
+                        <List.Content>
+                            <Input
+                                loading={this.props.loading}
+                                type="text"
+                                icon="search"
+                                placeholder="Search for a character..."
+                                onChange={(event: React.ChangeEvent<HTMLInputElement>) => this.doSearch(event)}
+                            />
+                        </List.Content>
+                    </List.Item>
+                { this.state.filteredCharacters.map((char: CharacterBio) => (
+                    <List.Item key={char.uuid}>
+                        <List.Content verticalAlign="middle">
+                            <List.Header>
+                                {char.name}
+                                <ButtonGroup floated="right"c>
+                                    <Button icon size="mini">
+                                        <Icon name="shopping cart" />
+                                    </Button>
+                                    <Button size="mini" icon>
+                                        <Icon name="address book" />
+                                    </Button>
+                                </ButtonGroup>
+                            </List.Header>
+                            <List.Description>
+                                <Icon name={char.sex === "M" ? "mars" : "venus"} />
+                                {char.metatype.name}
+                            </List.Description>
+                            <ItemExtra>
+
+                            </ItemExtra>
+                        </List.Content>
+                    </List.Item>
+                ))}
+                { this.props.characters.length === 0 && !this.props.loading ? (
+                    <Message>
+                        <Message.Content>
+                            <p>You don't seem to have any characters created!</p>
+                        </Message.Content>
+                    </Message>
+                ) : ""}
+                </List>
+              </Sidebar>
         );
     }
 }
 
-export default withStyles(useStyles)(CharacterNav);
+export default CharacterNav;

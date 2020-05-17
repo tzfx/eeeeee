@@ -1,6 +1,8 @@
 import { Skill } from "./Skill.interface";
 
 export class Electronics implements Skill {
+    rank = 1;
+    specialized = "";
     name = 'Electronics'
     specializations?: string[] = ['Computer', 'Hardware', 'Software'];
     untrained: boolean = true;

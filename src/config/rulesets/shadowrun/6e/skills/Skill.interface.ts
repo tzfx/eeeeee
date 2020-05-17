@@ -6,6 +6,9 @@ export interface Skill {
     untrained: boolean;
     primaryAttribute: string;
     secondaryAttribute?: string;
-    
+
+    rank: number;
+    specialized: string;
+
     usableByCharacter(character: Character): boolean;
 }

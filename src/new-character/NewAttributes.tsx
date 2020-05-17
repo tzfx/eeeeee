@@ -49,11 +49,11 @@ class NewAttributes extends React.Component<Props, State> {
             <h3>
                 Total Points: {this.state.totalPoints}
                 {this.state.builder.error !== '' ? (
-                <button className="ui red label">
-                    <i className="exclamation triangle icon"></i>
-                    {this.state.builder.error}
-                </button>
-            ) : ''}
+                    <button className="ui red label">
+                        <i className="exclamation triangle icon"></i>
+                        {this.state.builder.error}
+                    </button>
+                ) : ''}
             </h3>
             <h4>
                 ( {this.props.priority.Attributes?.value} Attributes, {this.props.priority.Metatype?.value} Adjustment)

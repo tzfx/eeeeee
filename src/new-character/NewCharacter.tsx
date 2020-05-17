@@ -1,6 +1,4 @@
-import { Button } from '@material-ui/core';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import { Button, Icon } from 'semantic-ui-react';
 import React from 'react';
 import { Attributes } from '../config/rulesets/shadowrun/6e/Attributes';
 import { CharacterBio } from '../config/rulesets/shadowrun/6e/CharacterBio.interface';
@@ -10,6 +8,7 @@ import NewBio from './NewBio';
 import NewPriorities, { State as PriorityState } from './NewPriorities';
 import { Skill } from '../config/rulesets/shadowrun/6e/skills/Skill.interface';
 import { CharacterService } from '../api/CharacterService';
+import NewSkills from './NewSkills';
 
 
 type Progress = "bio" | "priorities" | "attributes" | "skills" | "qualities" | "summary";
@@ -23,7 +22,8 @@ interface State {
 }
 
 interface Props {
-    newCharacterCreated: () => void
+    newCharacterCreated: () => void,
+    doExit: () => void
 }
 
 
@@ -62,7 +62,7 @@ export class NewCharacter extends React.Component<Props, State> {
     }
     
     saveAndExit = () => {
-        return true;
+        this.props.doExit();
     }
     
     goNext = () => {
@@ -103,7 +103,7 @@ export class NewCharacter extends React.Component<Props, State> {
                 </h2>
                 <NewBio bioFinished={this.handleBioFinished} />
                 <Button onClick={() => this.saveAndExit()}>
-                    <ChevronLeftIcon /> Exit 
+                    <Icon name="chevron left" /> Exit 
                 </Button>
                 <Button
                     disabled={this.state.bio == null}
@@ -114,7 +114,7 @@ export class NewCharacter extends React.Component<Props, State> {
                             this.goNext();
                         }
                     }>
-                    Save & Continue to Priorities <ChevronRightIcon />
+                    Save & Continue to Priorities <Icon name="chevron right" />
                 </Button>
             </div>
             ; break;
@@ -128,10 +128,10 @@ export class NewCharacter extends React.Component<Props, State> {
                 </h2>
                 <NewPriorities prioritiesFinished={this.handlePrioritiesFinished} />
                 <Button onClick={() => this.goBack()}>
-                    <ChevronLeftIcon /> Back to Bio
+                    <Icon name="chevron left" /> Back to Bio
                 </Button>
                 <Button disabled={this.state.priorities == null} onClick={() => this.goNext()}>
-                    Save & Continue to Attributes <ChevronRightIcon />
+                    Save & Continue to Attributes <Icon name="chevron right" />
                 </Button>
             </div>
             ; break;
@@ -145,10 +145,10 @@ export class NewCharacter extends React.Component<Props, State> {
                 </h2>
                 <NewAttributes metatype={(this.state.bio as any)?.metatype} priority={this.state.priorities as any} attributesFinished={this.handleAttributesFinished} />
                 <Button onClick={() => this.goBack()}>
-                    <ChevronLeftIcon /> Back to Priorities
+                    <Icon name="chevron left" /> Back to Priorities
                 </Button>
                 <Button disabled={this.state.attributes == null} onClick={() => this.goNext()}>
-                    Save & Continue to Skills <ChevronRightIcon />
+                    Save & Continue to Skills <Icon name="chevron right" />
                 </Button>
             </div>
             ; break;
@@ -160,18 +160,18 @@ export class NewCharacter extends React.Component<Props, State> {
                     <i className="star icon"></i>
                     Skills
                 </h2>
-                <NewAttributes metatype={(this.state.bio as any)?.metatype} priority={this.state.priorities as any} attributesFinished={this.handleAttributesFinished} />
+                <NewSkills skillPoints={this.state.priorities?.Skills?.value} skillsFinished={this.handleSkillsFinished} />
                 <Button onClick={() => this.goBack()}>
-                    <ChevronLeftIcon /> Back to Attributes
+                    <Icon name="chevron left" /> Back to Attributes
                 </Button>
                 <Button disabled={this.state.attributes == null} onClick={() => this.goNext()}>
-                    Save & Continue to Qualities <ChevronRightIcon />
+                    Save & Complete Initial Creation<Icon name="chevron right" />
                 </Button>
             </div>
             ; break;
     }
     return (
-        <div style={{marginLeft: 240}}>
+        <div>
             <br />
             <div className="ui ordered steps">
                 <div className={`${this.stepCompleted("bio")} ${this.stepActive("bio")} step`}>
@@ -196,12 +196,6 @@ export class NewCharacter extends React.Component<Props, State> {
                     <div className="content">
                         <div className="title">Skills</div>
                         <div className="description">Learn Skills</div>
-                    </div>
-                </div>
-                <div className={`${this.stepCompleted("qualities")} ${this.stepActive("qualities")} step`}>
-                    <div className="content">
-                        <div className="title">Qualities</div>
-                        <div className="description">Take Qualities</div>
                     </div>
                 </div>
             </div>

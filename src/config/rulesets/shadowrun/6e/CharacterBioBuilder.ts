@@ -2,6 +2,8 @@ import { Builder } from "../../../../util/Builder.interface";
 import { CharacterBio } from "./CharacterBio.interface";
 import { Metatype } from "./metatype/Metatype.interface";
 
+import { v4 as UUID } from "uuid";
+
 export class CharacterBioBuilder implements Builder<CharacterBio> {
     
     name?: string;
@@ -61,6 +63,7 @@ export class CharacterBioBuilder implements Builder<CharacterBio> {
     build(): CharacterBio {
         if (this.isReady())
             return {
+                uuid: UUID(),
                 name: this.name,
                 metatype: this.metatype,
                 ethnicity: this.ethnicity,
