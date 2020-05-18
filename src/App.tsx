@@ -74,9 +74,7 @@ class App extends React.Component<{}, State> {
           <CharacterNav changeSection={this.handleSectionChange} active={this.state.active} loading={this.state.loadingCharacters} characters={this.state.characters} />
         </Grid.Column>
         <Grid.Column width="11" stretched>
-          {
-            this.renderView()
-          }
+          { this.renderView() }
         </Grid.Column>
         </Grid>
       </div>

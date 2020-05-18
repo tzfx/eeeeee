@@ -8,7 +8,7 @@ export const drawerWidth = 240;
 type Section = "home" | "new" | "shop" | "sheet" | "play";
 
 export type NavSection = {
-  character?: CharacterBio,
+  character?: string,
   section: Section
 };
 
@@ -96,9 +96,9 @@ class CharacterNav extends React.Component<Props, State> {
                             <List.Header>
                                 {char.name}
                                 <ButtonGroup floated="right">
-                                    <Button icon="shopping cart" size="mini">
+                                    <Button icon="shopping cart" size="mini" onClick={() => this.props.changeSection({character: char.uuid, section: "shop"})}>
                                     </Button>
-                                    <Button size="mini" icon="address book">
+                                    <Button size="mini" icon="address book" onClick={() => this.props.changeSection({character: char.uuid, section: "sheet"})}>
                                     </Button>
                                 </ButtonGroup>
                             </List.Header>
