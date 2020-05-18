@@ -1,13 +1,13 @@
 import React from 'react';
-import './App.css';
-import 'semantic-ui-css/semantic.min.css';
 import 'semantic-ui-css/components/icon.min.css';
-import { NewCharacter } from './new-character/NewCharacter';
-import CharacterNav, { NavSection } from './character-nav/CharacterNav';
+import 'semantic-ui-css/semantic.min.css';
+import { Grid } from 'semantic-ui-react';
 import { CharacterService } from './api/CharacterService';
+import './App.css';
+import CharacterNav, { NavSection } from './character-nav/CharacterNav';
 import { CharacterBio } from './config/rulesets/shadowrun/6e/CharacterBio.interface';
-import { Container, SidebarPusher } from 'semantic-ui-react';
 import { Home } from './home/Home';
+import { NewCharacter } from './new-character/NewCharacter';
 
 
 type State = {
@@ -59,7 +59,7 @@ class App extends React.Component<{}, State> {
   renderView() {
     let view;
     switch(this.state.active.section) {
-      case "home": view = (<Home></Home>); break;
+      case "home": view = (<Home characters={this.state.characters} campaigns={[]}></Home>); break;
       case "new": view = (<NewCharacter doExit={() => this.handleSectionChange({section: "home"})} newCharacterCreated={this.updateCharacterList} />); break;
       default: view = (<div>An unknown view was encountered.</div>);
     }
@@ -69,14 +69,16 @@ class App extends React.Component<{}, State> {
   render() {
     return (
       <div className="App">
-        <CharacterNav changeSection={this.handleSectionChange} active={this.state.active} loading={this.state.loadingCharacters} characters={this.state.characters} />
-        <SidebarPusher>
-          <Container>
-            {
-              this.renderView()
-            }
-          </Container>
-        </SidebarPusher>
+        <Grid>
+        <Grid.Column width="3">
+          <CharacterNav changeSection={this.handleSectionChange} active={this.state.active} loading={this.state.loadingCharacters} characters={this.state.characters} />
+        </Grid.Column>
+        <Grid.Column width="11" stretched>
+          {
+            this.renderView()
+          }
+        </Grid.Column>
+        </Grid>
       </div>
     );
   }

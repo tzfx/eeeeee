@@ -1,7 +1,7 @@
 import React from "react";
-import { Letter, MagicPriorities, PriorityOptions, PRIORITY_LETTERS, PRIORITY_TYPES } from "../config/rulesets/shadowrun/6e/PriorityOptions";
+import { Button, CardGroup, Container, Divider, Grid, Icon } from "semantic-ui-react";
+import { Letter, MagicPriorities } from "../config/rulesets/shadowrun/6e/PriorityOptions";
 import { Skill } from "../config/rulesets/shadowrun/6e/skills/Skill.interface";
-import { Grid, Divider, Container, CardGroup, Button, Icon } from "semantic-ui-react";
 import { ALL_SKILLS } from "../config/rulesets/shadowrun/6e/skills/SkillIndex";
 import { SkillDisplay } from "./SkillDisplay";
 

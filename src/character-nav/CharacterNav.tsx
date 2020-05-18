@@ -1,6 +1,6 @@
 import React from 'react';
+import { Button, ButtonGroup, Icon, Input, Item, List, Menu, Message, Segment } from 'semantic-ui-react';
 import { CharacterBio } from '../config/rulesets/shadowrun/6e/CharacterBio.interface';
-import { Input, Sidebar, Item, Icon, List, Button, Message, ItemExtra, ButtonGroup} from 'semantic-ui-react';
 
 export const drawerWidth = 240;
 
@@ -58,18 +58,17 @@ class CharacterNav extends React.Component<Props, State> {
 
     render() {
         return (
-              <Sidebar visible direction="left">
+              <Menu vertical fluid tabular>
                 <br />
-                <Item>
+                <Segment vertical>
                     <Icon name="chess queen" size="big" />
                     <Item.Header>
                         EEEEEE
                     </Item.Header>
-                </Item>
-                <hr />
-                <List divided>
-                    <List.Item >
-                        <List.Content>
+                </Segment>
+                <List>
+                    <List.Item>
+                        <List.Content>  
                             <Button onClick={() => this.props.changeSection({section: "new"})}>
                                 <List.Header>
                                     <Icon name="add square" />
@@ -93,14 +92,13 @@ class CharacterNav extends React.Component<Props, State> {
                 { this.state.filteredCharacters.map((char: CharacterBio) => (
                     <List.Item key={char.uuid}>
                         <List.Content verticalAlign="middle">
+                            <Segment>
                             <List.Header>
                                 {char.name}
-                                <ButtonGroup floated="right"c>
-                                    <Button icon size="mini">
-                                        <Icon name="shopping cart" />
+                                <ButtonGroup floated="right">
+                                    <Button icon="shopping cart" size="mini">
                                     </Button>
-                                    <Button size="mini" icon>
-                                        <Icon name="address book" />
+                                    <Button size="mini" icon="address book">
                                     </Button>
                                 </ButtonGroup>
                             </List.Header>
@@ -108,9 +106,7 @@ class CharacterNav extends React.Component<Props, State> {
                                 <Icon name={char.sex === "M" ? "mars" : "venus"} />
                                 {char.metatype.name}
                             </List.Description>
-                            <ItemExtra>
-
-                            </ItemExtra>
+                            </Segment>
                         </List.Content>
                     </List.Item>
                 ))}
@@ -122,7 +118,7 @@ class CharacterNav extends React.Component<Props, State> {
                     </Message>
                 ) : ""}
                 </List>
-              </Sidebar>
+              </Menu>
         );
     }
 }
