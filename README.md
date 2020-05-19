@@ -1,4 +1,4 @@
-# RPG-Me
+# E<sup>6</sup>
 
 Initially, a character creation tool for Shadowrun 6E.
 
