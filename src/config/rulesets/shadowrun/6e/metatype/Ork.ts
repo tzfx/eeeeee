@@ -9,7 +9,7 @@ export class Ork implements Metatype {
     averageWeight = 128;
     ears = 'pointy';
     knownFor = 'Big, powerful physique; tusks; constantly being seen as outsiders';
-    racials = [new LowLightVision(), new BuiltTough(1)];
+    racials = [new LowLightVision(), new BuiltTough()];
     maxAttributes = {
         body: 8,
         agility: 6,

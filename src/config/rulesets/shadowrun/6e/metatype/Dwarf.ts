@@ -1,5 +1,6 @@
 import { Metatype } from "./Metatype.interface";
-import { ToxinResistence, ThermographicVision } from "../qualities/positive";
+import { ToxinResistance } from "../qualities/positive/ToxinResistance";
+import { ThermographicVision } from "../qualities/positive/ThermographicVision";
 import { Attributes } from "../Attributes";
 
 export class Dwarf implements Metatype {
@@ -8,7 +9,7 @@ export class Dwarf implements Metatype {
     averageWeight = 54;
     ears = 'slightly pointy';
     knownFor = 'Short size; stocky build; perserverance';
-    racials = [new ToxinResistence(), new ThermographicVision()];
+    racials = [new ToxinResistance(), new ThermographicVision()];
     maxAttributes = {
         body: 7,
         agility: 6,

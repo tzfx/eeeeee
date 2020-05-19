@@ -9,15 +9,18 @@ import NewPriorities, { State as PriorityState } from './NewPriorities';
 import { Skill } from '../config/rulesets/shadowrun/6e/skills/Skill.interface';
 import { CharacterService } from '../api/CharacterService';
 import NewSkills from './NewSkills';
+import { Quality } from '../config/rulesets/shadowrun/6e/qualities/Quality';
 
 
-type Progress = "bio" | "priorities" | "attributes" | "skills" | "qualities" | "summary";
+type Progress = "bio" | "priorities" | "attributes" | "skills" | "magic" | "qualities" | "summary";
 
 interface State {
     bio?: CharacterBio,
     priorities?: PriorityState,
     attributes?: Attributes,
     skills?: Skill[],
+    spells?: [],
+    qualities?: Quality[]
     progress: Progress
 }
 
@@ -39,6 +42,7 @@ export class NewCharacter extends React.Component<Props, State> {
             "priorities",
             "attributes",
             "skills",
+            "magic",
             "qualities",
             "summary"
         ]);
@@ -164,20 +168,58 @@ export class NewCharacter extends React.Component<Props, State> {
                 <Button onClick={() => this.goBack()}>
                     <Icon name="chevron left" /> Back to Attributes
                 </Button>
-                <Button disabled={this.state.attributes == null} onClick={() => this.goNext()}>
+                <Button disabled={this.state.skills == null} onClick={() => this.goNext()}>
+                    Save & Continue to Magic<Icon name="chevron right" />
+                </Button>
+            </div>
+            ; break;
+        case "magic":
+            currentView =
+            <div>
+                <br />
+                <h2 className="ui horizontal divider header">
+                    <Icon name="magic" />
+                    Magic
+                </h2>
+                <NewSkills skillPoints={this.state.priorities?.Skills?.value} skillsFinished={this.handleSkillsFinished} />
+                <Button onClick={() => this.goBack()}>
+                    <Icon name="chevron left" /> Back to Skills
+                </Button>
+                <Button disabled={this.state.spells == null} onClick={() => this.goNext()}>
+                    Save & Continue to Qualities<Icon name="chevron right" />
+                </Button>
+            </div>
+            ; break;
+        case "qualities":
+            currentView =
+            <div>
+                <br />
+                <h2 className="ui horizontal divider header">
+                    <Icon name="shield alternate" />
+                    Qualities
+                </h2>
+                <NewSkills skillPoints={this.state.priorities?.Skills?.value} skillsFinished={this.handleSkillsFinished} />
+                <Button onClick={() => this.goBack()}>
+                    <Icon name="chevron left" /> Back to Magic
+                </Button>
+                <Button disabled={this.state.qualities == null} onClick={() => this.goNext()}>
                     Save & Complete Initial Creation<Icon name="chevron right" />
                 </Button>
             </div>
             ; break;
+        case "summary":
+            break;
+        default:
+            currentView = <div>Oh no.</div>
     }
     return (
         <div>
             <br />
-            <div className="ui ordered steps">
+            <div className="ui ordered steps fluid mini">
                 <div className={`${this.stepCompleted("bio")} ${this.stepActive("bio")} step`}>
                     <div className="content">
                         <div className="title">Bio</div>
-                        <div className="description">Set your biographical information</div>
+                        <div className="description">Set your bio</div>
                     </div>
                 </div>
                 <div className={`${this.stepCompleted("priorities")} ${this.stepActive("priorities")} step`}>
@@ -196,6 +238,18 @@ export class NewCharacter extends React.Component<Props, State> {
                     <div className="content">
                         <div className="title">Skills</div>
                         <div className="description">Learn Skills</div>
+                    </div>
+                </div>
+                <div className={`${this.stepCompleted("magic")} ${this.stepActive("magic")} step`}>
+                    <div className="content">
+                        <div className="title">Magic</div>
+                        <div className="description">Choose Spells</div>
+                    </div>
+                </div>
+                <div className={`${this.stepCompleted("qualities")} ${this.stepActive("qualities")} step`}>
+                    <div className="content">
+                        <div className="title">Qualities</div>
+                        <div className="description">Take Qualities</div>
                     </div>
                 </div>
             </div>

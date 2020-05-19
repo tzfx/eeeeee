@@ -8,7 +8,7 @@ export class Troll implements Metatype {
     averageWeight: number = 300;
     ears: string = 'slightly pointy';
     knownFor: string = 'Being so big, you guys. Just huge. And horns.';
-    racials = [new DermalDeposits(), new ThermographicVision(), new BuiltTough(2)];
+    racials = [new DermalDeposits(), new ThermographicVision(), new BuiltTough(undefined,2)];
     maxAttributes = {
         body: 9,
         agility: 5,
