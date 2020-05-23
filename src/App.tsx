@@ -8,6 +8,7 @@ import CharacterNav, { NavSection } from './character-nav/CharacterNav';
 import { CharacterBio } from './config/rulesets/shadowrun/6e/CharacterBio.interface';
 import { Home } from './home/Home';
 import { NewCharacter } from './new-character/NewCharacter';
+import { Router, BrowserRouter } from 'react-router-dom';
 
 
 type State = {
@@ -68,16 +69,18 @@ class App extends React.Component<{}, State> {
 
   render() {
     return (
-      <div className="App">
-        <Grid>
-        <Grid.Column width="3">
-          <CharacterNav changeSection={this.handleSectionChange} active={this.state.active} loading={this.state.loadingCharacters} characters={this.state.characters} />
-        </Grid.Column>
-        <Grid.Column width="11" stretched>
-          { this.renderView() }
-        </Grid.Column>
-        </Grid>
-      </div>
+      <BrowserRouter>
+        <div className="App">
+          <Grid>
+          <Grid.Column width="3">
+            <CharacterNav changeSection={this.handleSectionChange} active={this.state.active} loading={this.state.loadingCharacters} characters={this.state.characters} />
+          </Grid.Column>
+          <Grid.Column width="11" stretched>
+            { this.renderView() }
+          </Grid.Column>
+          </Grid>
+        </div>
+      </BrowserRouter>
     );
   }
 

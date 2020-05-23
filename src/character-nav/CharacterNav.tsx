@@ -1,6 +1,8 @@
 import React from 'react';
-import { Button, ButtonGroup, Icon, Input, Item, List, Menu, Message, Segment } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
+import { Button, ButtonGroup, Icon, Input, Item, List, Menu, Message, Segment, Image } from 'semantic-ui-react';
 import { CharacterBio } from '../config/rulesets/shadowrun/6e/CharacterBio.interface';
+import { AVATAR_IMAGE } from '../api/AvatarService';
 
 export const drawerWidth = 240;
 
@@ -69,7 +71,7 @@ class CharacterNav extends React.Component<Props, State> {
                 <List>
                     <List.Item>
                         <List.Content>  
-                            <Button onClick={() => this.props.changeSection({section: "new"})}>
+                            <Button as={Link} to="/new" onClick={() => this.props.changeSection({section: "new"})}>
                                 <List.Header>
                                     <Icon name="add square" />
                                     Create a new character
@@ -93,6 +95,7 @@ class CharacterNav extends React.Component<Props, State> {
                     <List.Item key={char.uuid}>
                         <List.Content verticalAlign="middle">
                             <Segment>
+                            <Image src={AVATAR_IMAGE()} floated="left" avatar></Image>
                             <List.Header>
                                 {char.name}
                                 <ButtonGroup floated="right">

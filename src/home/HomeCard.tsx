@@ -1,5 +1,6 @@
 import React from "react";
 import { Card, Icon, CardContent, CardHeader, SemanticICONS, CardMeta, Segment } from "semantic-ui-react";
+import { Link } from "react-router-dom";
 
 type Props = {
     icon: SemanticICONS,
@@ -12,7 +13,7 @@ export class HomeCard extends React.Component<Props, {}> {
 
     render() {
         return (
-            <Card link centered>
+            <Card as={Link} to={this.props.link} link centered>
                 <Segment padded>
                     <Icon size="huge" name={this.props.icon} />
                 <hr />

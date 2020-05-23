@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, CardGroup, Container, Divider, Grid, Icon } from "semantic-ui-react";
+import { Button, CardGroup, Container, Divider, Grid, Icon, Header, HeaderContent } from "semantic-ui-react";
 import { Letter, MagicPriorities } from "../config/rulesets/shadowrun/6e/PriorityOptions";
 import { Skill } from "../config/rulesets/shadowrun/6e/skills/Skill.interface";
 import { ALL_SKILLS } from "../config/rulesets/shadowrun/6e/skills/SkillIndex";
@@ -83,13 +83,18 @@ class NewSkills extends React.Component<Props, State> {
     render() {
         return (
             <Container>
+                <Header>
+                    <HeaderContent>
+                        {this.state.points} Left
+                    </HeaderContent>
+                </Header>
                 {this.state.error !== '' ? (
                     <Button color="red" label>
                         <Icon name="exclamation triangle"></Icon>
                         {this.state.error}
                     </Button>
                 ) : ''}
-                <Grid columns="2" relaxed="very" >
+                <Grid divided columns="2" relaxed="very" >
                     <Grid.Column>
                         <CardGroup>
                             {
@@ -112,9 +117,6 @@ class NewSkills extends React.Component<Props, State> {
                         </CardGroup>
                     </Grid.Column>
                 </Grid>
-                <Divider vertical>
-                    {this.state.points} Left
-                </Divider>
             </Container>
         );
     }
