@@ -17,7 +17,7 @@ type Props = {
   link: string;
 };
 
-export class HomeCard extends React.Component<Props, {}> {
+export class HomeCard extends React.Component<Props, Record<string, unknown>> {
   render() {
     return (
       <Card as={Link} to={this.props.link} link centered>

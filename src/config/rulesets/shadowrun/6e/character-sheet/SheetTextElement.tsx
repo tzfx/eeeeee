@@ -6,7 +6,9 @@ type Props = {
   value: any;
 };
 
-class SheetTextElement extends React.Component<Props, {}> {
+type State = Record<string, unknown>;
+
+class SheetTextElement extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
   }

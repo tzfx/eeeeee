@@ -10,14 +10,16 @@ import { Home } from "./home/Home";
 import { NewCharacter } from "./new-character/NewCharacter";
 import { Router, BrowserRouter } from "react-router-dom";
 
+type Props = Record<string, unknown>;
+
 type State = {
   characters: CharacterBio[];
   loadingCharacters: boolean;
   active: NavSection;
 };
 
-class App extends React.Component<{}, State> {
-  constructor(props: {}) {
+class App extends React.Component<Props, State> {
+  constructor(props: Props) {
     super(props);
     this.state = {
       loadingCharacters: true,

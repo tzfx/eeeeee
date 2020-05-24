@@ -4,6 +4,7 @@ import { Express } from "express-serve-static-core";
 import { v4 as UUID } from "uuid";
 import bodyParser from "body-parser";
 import { LevelUp } from "levelup";
+import level = require("level");
 
 const PORT = 3001;
 const BASE = "/api";
@@ -15,7 +16,7 @@ class Application {
   constructor() {
     this.express = express();
     this.express.use(bodyParser.json());
-    this.db = require("level")("./db");
+    this.db = level("./db");
     if (process.env.NODE_ENV !== "production") this.db.clear();
     this.startServer();
   }

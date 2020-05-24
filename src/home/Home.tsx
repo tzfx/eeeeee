@@ -9,7 +9,7 @@ type Props = {
   campaigns: [];
 };
 
-export class Home extends React.Component<Props, {}> {
+export class Home extends React.Component<Props, Record<string, unknown>> {
   render() {
     return (
       <div>

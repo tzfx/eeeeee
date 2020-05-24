@@ -1,4 +1,4 @@
-import { RankedQuality, Quality } from "../Quality";
+import { Quality } from "../Quality";
 
 export class GlassJaw implements Quality {
   cost = -4;

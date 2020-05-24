@@ -7,7 +7,9 @@ type Props = {
   notes: string;
 };
 
-class ArmorElement extends React.Component<Props, {}> {
+type State = Record<string, unknown>;
+
+class ArmorElement extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
   }
