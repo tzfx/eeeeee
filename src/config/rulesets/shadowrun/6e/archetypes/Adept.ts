@@ -1,15 +1,18 @@
+import { AttributesBuilder } from "../Attributes";
 import { Character } from "../Character";
 import { CharacterBioBuilder } from "../CharacterBioBuilder";
 import { Human } from "../metatype/Human";
-import { AttributesBuilder } from "../Attributes";
+import { ARVertigo } from "../qualities/negative/ARVertigo";
+import { Honorbound } from "../qualities/negative/Honorbound";
+import { Sinner } from "../qualities/negative/Sinner";
+import { Guts } from "../qualities/positive/Guts";
+import { QuickHealer } from "../qualities/positive/QuickHealer";
+import { Toughness } from "../qualities/positive/Toughness";
 import { Athletics } from "../skills/Athletics";
 import { Biotech } from "../skills/Biotech";
 import { CloseCombat } from "../skills/CloseCombat";
 import { Outdoors } from "../skills/Outdoors";
 import { Perception } from "../skills/Perception";
-import { Guts } from "../qualities/positive/Guts";
-import { QuickHealer } from "../qualities/positive/QuickHealer";
-import { Toughness } from "../qualities/positive/Toughness";
 
 // Skills
 const Athletics3 = new Athletics();
@@ -55,6 +58,15 @@ const Adept: Character = new Character(
 
 Adept.skills = [Athletics3, Biotech2, CQC6, Outdoors2, Perception4];
 
-Adept.qualities = [new Guts(), new QuickHealer(), new Toughness()];
+Adept.qualities = [
+  new Guts(),
+  new QuickHealer(),
+  new Toughness(),
+  new ARVertigo(),
+  new Honorbound("Code Duello"),
+  new Sinner(),
+];
+
+Adept.nuyen = 4420;
 
 export const AdeptExample = Adept;
