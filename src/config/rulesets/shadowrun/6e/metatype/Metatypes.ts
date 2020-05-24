@@ -5,11 +5,5 @@ import { Troll } from "./Troll";
 import { Ork } from "./Ork";
 
 export class Metatypes {
-    static types = [
-        new Dwarf(),
-        new Elf(),
-        new Human(),
-        new Ork(),
-        new Troll()
-    ];
+  static types = [new Dwarf(), new Elf(), new Human(), new Ork(), new Troll()];
 }

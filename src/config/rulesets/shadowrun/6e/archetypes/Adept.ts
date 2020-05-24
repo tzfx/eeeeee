@@ -33,37 +33,28 @@ Perception4.specialized = "Visual +2";
 
 // Character
 const Adept: Character = new Character(
-    new CharacterBioBuilder()
-        .setAge(25)
-        .setEthnicity("American")
-        .setMetatype(new Human())
-        .setName("Herkule").build(),
-    new AttributesBuilder(new Human(), {} as any)
-        .set("body", 5)
-        .set("agility", 6)
-        .set("reaction", 5)
-        .set("strength", 5)
-        .set("willpower", 4)
-        .set("logic", 2)
-        .set("intuition", 3)
-        .set("charisma", 2)
-        .set("edge", 7)
-        .set("magic", 6)
-        .build()
-)
+  new CharacterBioBuilder()
+    .setAge(25)
+    .setEthnicity("American")
+    .setMetatype(new Human())
+    .setName("Herkule")
+    .build(),
+  new AttributesBuilder(new Human(), {} as any)
+    .set("body", 5)
+    .set("agility", 6)
+    .set("reaction", 5)
+    .set("strength", 5)
+    .set("willpower", 4)
+    .set("logic", 2)
+    .set("intuition", 3)
+    .set("charisma", 2)
+    .set("edge", 7)
+    .set("magic", 6)
+    .build()
+);
 
-Adept.skills = [
-        Athletics3,
-        Biotech2,
-        CQC6,
-        Outdoors2,
-        Perception4
-    ];
-    
-Adept.qualities = [
-        new Guts(),
-        new QuickHealer(),
-        new Toughness()
-    ];
-    
+Adept.skills = [Athletics3, Biotech2, CQC6, Outdoors2, Perception4];
+
+Adept.qualities = [new Guts(), new QuickHealer(), new Toughness()];
+
 export const AdeptExample = Adept;

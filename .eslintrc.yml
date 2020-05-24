@@ -6,8 +6,10 @@ parserOptions:
     jsx: true
 plugins:
   - "@typescript-eslint"
+  - "prettier"
   - "react"
 extends:
   - "eslint:recommended"
+  - "plugin:prettier/recommended"
   - "plugin:@typescript-eslint/recommended"
   - "plugin:react/recommended"
