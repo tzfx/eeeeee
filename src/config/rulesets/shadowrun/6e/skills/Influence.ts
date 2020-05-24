@@ -5,8 +5,8 @@ export class Influence implements Skill {
     specialized = "";
     name = 'Influence'
     specializations?: string[] = ['Ettiquette', 'Instruction', 'Intimidation', 'Leadership', 'Negotiation'];
-    untrained: boolean = true;
-    primaryAttribute: string = 'charisma';
+    untrained = true;
+    primaryAttribute = 'charisma';
     secondaryAttribute = 'logic'
     usableByCharacter() {
         return true;

@@ -5,8 +5,8 @@ export class Firearms implements Skill {
     specialized = "";
     name = 'Firearms';
     specializations?: string[] = ['Automatics', 'Longarms', 'Pistols', 'Rifles', 'Shotguns'];
-    untrained: boolean = true;
-    primaryAttribute: string = 'agility';
+    untrained = true;
+    primaryAttribute = 'agility';
     usableByCharacter() {
         return true;
     }

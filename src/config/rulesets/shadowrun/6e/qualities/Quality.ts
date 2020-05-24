@@ -6,12 +6,12 @@ export interface Quality {
 
 export class RankedQuality implements Quality {
     name: string;
-    cost: number = 0;
-    effect: string = '';
+    cost = 0;
+    effect = '';
     rank: number;
     max: number;
     stat?: {[stat: string]: number}
-    constructor(name: string, rank: number = 1, max: number = 0) {
+    constructor(name: string, rank = 1, max = 0) {
         this.name = name;
         this.rank = rank;
         this.cost = this.cost * rank;

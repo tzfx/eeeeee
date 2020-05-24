@@ -5,8 +5,8 @@ export class Outdoors implements Skill {
     specialized = "";
     name = 'Outdoors'
     specializations?: string[] = ['Navigation', 'Survival', 'Tracking'];
-    untrained: boolean = true;
-    primaryAttribute: string = 'intuition';
+    untrained = true;
+    primaryAttribute = 'intuition';
     usableByCharacter() {
         return true;
     }

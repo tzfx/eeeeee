@@ -5,8 +5,8 @@ export class Tasking implements Skill {
     specialized = "";
     name = 'Tasking';
     specializations?: string[] = ['Compiling', 'Decompiling', 'Registering'];
-    untrained: boolean = false;
-    primaryAttribute: string = 'magic';
+    untrained = false;
+    primaryAttribute = 'magic';
     usableByCharacter() {
         return false;
     }

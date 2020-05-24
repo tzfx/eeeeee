@@ -5,8 +5,8 @@ export class Con implements Skill {
     specialized = "";
     name = 'Con';
     specializations?: string[] = ['Acting', 'Disguise', 'Impersonation', 'Performance'];
-    untrained: boolean = true;
-    primaryAttribute: string = 'charisma';
+    untrained = true;
+    primaryAttribute = 'charisma';
     usableByCharacter() {
         return true;
     }

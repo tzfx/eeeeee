@@ -5,8 +5,8 @@ export class Stealth implements Skill {
     specialized = "";
     name = 'Stealth';
     specializations?: string[] = ['Camouflage', 'Disguise', 'Palming', 'Sneaking'];
-    untrained: boolean = true;
-    primaryAttribute: string = 'agility';
+    untrained = true;
+    primaryAttribute = 'agility';
     usableByCharacter() {
         return true;
     }

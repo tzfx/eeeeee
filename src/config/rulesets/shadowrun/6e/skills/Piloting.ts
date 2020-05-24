@@ -5,8 +5,8 @@ export class Piloting implements Skill {
     specialized = "";
     name = 'Piloting';
     specializations?: string[] = ['Ground Craft', 'Aircraft', 'Watercraft'];
-    untrained: boolean = true;
-    primaryAttribute: string = 'reaction';
+    untrained = true;
+    primaryAttribute = 'reaction';
     usableByCharacter() {
         return true;
     }

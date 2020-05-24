@@ -5,8 +5,8 @@ export class Athletics implements Skill {
     specialized = "";
     name = 'Athletics';
     specializations?: string[] = ['Archery', 'Climbing', 'Flying', 'Gymnastics', 'Sprinting', 'Swimming', 'Throwing'];
-    untrained: boolean = true;
-    primaryAttribute: string = 'agility';
+    untrained = true;
+    primaryAttribute = 'agility';
     secondaryAttribute?: string = 'strength';
     usableByCharacter() {
         return true;

@@ -5,8 +5,8 @@ export class Cracking implements Skill {
     specialized = "";
     name = 'Cracking';
     specializations?: string[] = ['Cybercombat', 'Electronic Warfare', 'Hacking'];
-    untrained: boolean = false;
-    primaryAttribute: string = 'logic';
+    untrained = false;
+    primaryAttribute = 'logic';
     usableByCharacter() {
         return true;
     }

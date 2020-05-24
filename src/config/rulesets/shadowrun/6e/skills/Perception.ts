@@ -5,8 +5,8 @@ export class Perception implements Skill {
     specialized = "";
     name = 'Perception';
     specializations?: string[] = ['Visual', 'Aural', 'Tactile'];
-    untrained: boolean = true;
-    primaryAttribute: string = 'intuition';
+    untrained = true;
+    primaryAttribute = 'intuition';
     secondaryAttribute = 'logic';
     usableByCharacter() {
         return true;

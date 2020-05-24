@@ -5,8 +5,8 @@ export class CloseCombat implements Skill {
     specialized = "";
     name = 'Close Combat';
     specializations?: string[] = ['Blades', 'Clubs', 'Unarmed'];
-    untrained: boolean = true;
-    primaryAttribute: string = 'agility';
+    untrained = true;
+    primaryAttribute = 'agility';
     usableByCharacter() {
         return true;
     }

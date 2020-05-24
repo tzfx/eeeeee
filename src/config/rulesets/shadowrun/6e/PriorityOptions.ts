@@ -80,7 +80,7 @@ export interface MagicPriorities {
     MysticAdept: number;
     Adept: number;
     Technomancer: number;
-};
+}
 
 export type Letter = "A" | "B" | "C" | "D" | "E"
 export const PRIORITY_LETTERS: Letter[] = ["A", "B", "C", "D", "E"];

@@ -82,7 +82,7 @@ export const ALL_ATTRIBUTES = ATTRIBUTE_OPTIONS.concat(SPECIAL_ATTRIBUTE_OPTIONS
 
 export class AttributesBuilder implements Builder<Attributes> {
     
-    error: string = '';
+    error = '';
     
     metatype: Metatype;
     priority: PrioritySelection;

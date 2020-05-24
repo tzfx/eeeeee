@@ -5,8 +5,8 @@ export class Biotech implements Skill {
     specialized = "";
     name = 'Biotech';
     specializations?: string[] = ['Biotechnology', 'Cybertechnology', 'First Aid', 'Medicine'];
-    untrained: boolean = false;
-    primaryAttribute: string = 'logic';
+    untrained = false;
+    primaryAttribute = 'logic';
     secondaryAttribute?: string = 'intuition';
     usableByCharacter() {
         return true;

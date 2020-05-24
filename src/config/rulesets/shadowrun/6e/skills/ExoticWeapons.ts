@@ -5,8 +5,8 @@ export class ExoticWeapons implements Skill {
     specialized = "";
     name = 'Exotic Weapons';
     specializations?: string[] = [];
-    untrained: boolean = false;
-    primaryAttribute: string = 'agility';
+    untrained = false;
+    primaryAttribute = 'agility';
     usableByCharacter() {
         return true;
     }

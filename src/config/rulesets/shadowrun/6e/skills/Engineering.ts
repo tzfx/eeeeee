@@ -5,8 +5,8 @@ export class Engineering implements Skill {
     specialized = "";
     name = 'Engineering';
     specializations?: string[] = ['Aeronautics Mechanic', 'Armorer', 'Automotive Mechanic', 'Demolitions', 'Gunnery', 'Industrial Mechanic', 'Lockpicking', 'Nautical Mechanic'];
-    untrained: boolean = true;
-    primaryAttribute: string = 'logic';
+    untrained = true;
+    primaryAttribute = 'logic';
     usableByCharacter() {
         return true;
     }

@@ -5,8 +5,8 @@ export class Sorcery implements Skill {
     specialized = "";
     name = 'Sorcery';
     specializations?: string[] = ['Counterspelling', 'Ritual Spellcasting', 'Spellcasting'];
-    untrained: boolean = false;
-    primaryAttribute: string = 'magic';
+    untrained = false;
+    primaryAttribute = 'magic';
     usableByCharacter() {
         return true;
     }

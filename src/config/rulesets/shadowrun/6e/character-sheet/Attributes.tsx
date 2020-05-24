@@ -130,7 +130,7 @@ class Attributes extends React.Component<Props> {
             <Typography variant="h3">Personal Data</Typography>
             <Grid container spacing={3}>
                 {this.elements.map(e =>
-                    <Grid item xs={e.size}>
+                    <Grid item key={e.name} xs={e.size}>
                         <Paper className={classes.paper}>
                             <SheetTextElement name={e.name} value={e.value} />
                         </Paper>

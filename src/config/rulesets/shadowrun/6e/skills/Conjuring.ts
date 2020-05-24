@@ -5,8 +5,8 @@ export class Conjuring implements Skill {
     specialized = "";
     name = 'Conjuring';
     specializations?: string[] = ['Banishing', 'Summoning'];
-    untrained: boolean = false;
-    primaryAttribute: string = 'magic';
+    untrained = false;
+    primaryAttribute = 'magic';
     usableByCharacter() {
         return true;
     }

@@ -34,29 +34,29 @@ export class Character {
 
     bio: CharacterBio;
 
-    reputation: number = 0;
-    heat: number = 0;
+    reputation = 0;
+    heat = 0;
 
-    karma: number = 0;
-    totalKarma: number = 0;
+    karma = 0;
+    totalKarma = 0;
 
     attributes: Attributes;
     qualities: Quality[] = [];
     racials: Quality[] = [];
     skills: Skill[] = [];
     contacts: Contact[] = [];
-    lifestyle?: {};
+    lifestyle?: unknown;
     knowledge: [] = [];
     language: [] = [];
-    inventory?: {};
+    inventory?: unknown;
     combat?: {
         armor?: Armor,
         ranged?: RangedWeapon,
         melee?: Weapon
     };
     vehicle?: Vehicle;
-    nuyen: number = 0;
-    initiativeDice: number = 1;
+    nuyen = 0;
+    initiativeDice = 1;
     
     constructor(bio: CharacterBio, attributes: Attributes) {
         this.bio = bio;

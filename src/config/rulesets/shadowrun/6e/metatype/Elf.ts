@@ -5,10 +5,10 @@ import { Attributes } from "../Attributes";
 
 export class Elf implements Metatype {
     name = 'Elf';
-    averageHeight: number = 1.9;
-    averageWeight: number = 80;
-    ears: string = 'pointy';
-    knownFor: string = 'Slender, lithe build; being attrac- tive and knowing it';
+    averageHeight = 1.9;
+    averageWeight = 80;
+    ears = 'pointy';
+    knownFor = 'Slender, lithe build; being attrac- tive and knowing it';
     racials: Quality[] = [new LowLightVision()]
     maxAttributes = {
         body: 6,

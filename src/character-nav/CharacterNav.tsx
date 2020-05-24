@@ -116,7 +116,7 @@ class CharacterNav extends React.Component<Props, State> {
                 { this.props.characters.length === 0 && !this.props.loading ? (
                     <Message>
                         <Message.Content>
-                            <p>You don't seem to have any characters created!</p>
+                            <p>You don&apos;t seem to have any characters created!</p>
                         </Message.Content>
                     </Message>
                 ) : ""}

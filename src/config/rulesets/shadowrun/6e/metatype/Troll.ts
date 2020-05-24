@@ -4,10 +4,10 @@ import { Attributes } from "../Attributes";
 
 export class Troll implements Metatype {
     name = 'Troll';
-    averageHeight: number = 2.5;
-    averageWeight: number = 300;
-    ears: string = 'slightly pointy';
-    knownFor: string = 'Being so big, you guys. Just huge. And horns.';
+    averageHeight = 2.5;
+    averageWeight = 300;
+    ears = 'slightly pointy';
+    knownFor = 'Being so big, you guys. Just huge. And horns.';
     racials = [new DermalDeposits(), new ThermographicVision(), new BuiltTough(undefined,2)];
     maxAttributes = {
         body: 9,

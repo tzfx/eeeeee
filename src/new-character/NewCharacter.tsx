@@ -10,6 +10,7 @@ import { Skill } from '../config/rulesets/shadowrun/6e/skills/Skill.interface';
 import { CharacterService } from '../api/CharacterService';
 import NewSkills from './NewSkills';
 import { Quality } from '../config/rulesets/shadowrun/6e/qualities/Quality';
+import { Link } from 'react-router-dom';
 
 
 type Progress = "bio" | "priorities" | "attributes" | "skills" | "magic" | "qualities" | "summary";
@@ -106,7 +107,7 @@ export class NewCharacter extends React.Component<Props, State> {
                     Bio
                 </h2>
                 <NewBio bioFinished={this.handleBioFinished} />
-                <Button onClick={() => this.saveAndExit()}>
+                <Button as={Link} to="/home"  onClick={() => this.saveAndExit()}>
                     <Icon name="chevron left" /> Exit 
                 </Button>
                 <Button

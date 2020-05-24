@@ -16,14 +16,14 @@ export class CharacterBuilder implements Builder<Character> {
     qualities: Set<Quality> = new Set();
     gear: Equipment[] = [];
     
-    adjustmentPoints: number = 0;
-    attributesPoints: number = 0;
-    skillPoints: number = 0;
-    magicPoints: number = 0;
+    adjustmentPoints = 0;
+    attributesPoints = 0;
+    skillPoints = 0;
+    magicPoints = 0;
 
-    bonusKarma: number = 0;
-    karma: number = 0;
-    resources: number = 0;
+    bonusKarma = 0;
+    karma = 0;
+    resources = 0;
     
     setMetatype(metatype: Metatype): CharacterBuilder {
         this.metatype = metatype;

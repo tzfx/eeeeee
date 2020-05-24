@@ -5,7 +5,6 @@ import { v4 as UUID } from 'uuid';
 import bodyParser from "body-parser";
 import { LevelUp } from "levelup";
 
-
 const PORT = 3001;
 const BASE = "/api";
 

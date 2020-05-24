@@ -5,8 +5,8 @@ export class Electronics implements Skill {
     specialized = "";
     name = 'Electronics'
     specializations?: string[] = ['Computer', 'Hardware', 'Software'];
-    untrained: boolean = true;
-    primaryAttribute: string = 'logic';
+    untrained = true;
+    primaryAttribute = 'logic';
     secondaryAttribute = 'intuition';
     usableByCharacter() {
         return true;

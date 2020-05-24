@@ -5,8 +5,8 @@ export class Enchanting implements Skill {
     specialized = "";
     name = 'Enchanting';
     specializations?: string[] = ['Alchemy', 'Artificing', 'Disenchanting'];
-    untrained: boolean = false;
-    primaryAttribute: string = 'magic';
+    untrained = false;
+    primaryAttribute = 'magic';
     usableByCharacter() {
         return true;
     }
