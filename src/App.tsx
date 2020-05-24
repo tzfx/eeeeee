@@ -8,7 +8,7 @@ import CharacterNav, { NavSection } from "./character-nav/CharacterNav";
 import { CharacterBio } from "./config/rulesets/shadowrun/6e/CharacterBio.interface";
 import { Home } from "./home/Home";
 import { NewCharacter } from "./new-character/NewCharacter";
-import { Router, BrowserRouter } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 
 type Props = Record<string, unknown>;
 

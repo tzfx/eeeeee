@@ -2,7 +2,6 @@ import React from "react";
 import { Container, Grid, Header, Icon } from "semantic-ui-react";
 import { CharacterBio } from "../config/rulesets/shadowrun/6e/CharacterBio.interface";
 import { HomeCard } from "./HomeCard";
-import { Link } from "react-router-dom";
 
 type Props = {
   characters: CharacterBio[];

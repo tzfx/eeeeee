@@ -1,5 +1,4 @@
 import { Skill } from "./Skill.interface";
-import { Character } from "../Character";
 
 export class Astral implements Skill {
   rank = 1;
@@ -14,7 +13,7 @@ export class Astral implements Skill {
   untrained = false;
   primaryAttribute = "intuition";
   secondaryAttribute?: string = "willpower";
-  usableByCharacter(_character: Character) {
+  usableByCharacter() {
     return false;
   }
 }
