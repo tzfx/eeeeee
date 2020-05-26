@@ -1,5 +1,5 @@
 import React from "react";
-import { TextField } from "@material-ui/core";
+import { Label } from "semantic-ui-react";
 
 type Props = {
   name: string;
@@ -15,15 +15,10 @@ class SheetTextElement extends React.Component<Props, State> {
 
   render = () => {
     return (
-      <TextField
-        id="outlined-read-only-input"
-        label={this.props.name}
-        defaultValue={this.props.value}
-        InputProps={{
-          readOnly: true,
-        }}
-        variant="outlined"
-      />
+      <Label size="large" basic>
+        {this.props.name}
+        <Label.Detail>{this.props.value}</Label.Detail>
+      </Label>
     );
   };
 }

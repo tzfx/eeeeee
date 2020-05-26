@@ -8,7 +8,7 @@ import CharacterNav, { NavSection } from "./character-nav/CharacterNav";
 import { CharacterBio } from "./config/rulesets/shadowrun/6e/CharacterBio.interface";
 import { Home } from "./home/Home";
 import { NewCharacter } from "./new-character/NewCharacter";
-import { BrowserRouter, Router, Route } from "react-router-dom";
+import { BrowserRouter, Route } from "react-router-dom";
 // import { Character } from "./config/rulesets/shadowrun/6e/Character";
 import { AdeptExample } from "./config/rulesets/shadowrun/6e/archetypes/Adept";
 import CharacterSheet from "./config/rulesets/shadowrun/6e/character-sheet/CharacterSheet";

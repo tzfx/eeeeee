@@ -1,6 +1,6 @@
 import React from "react";
+import { Grid, Header, HeaderContent, Segment } from "semantic-ui-react";
 import { Character } from "../Character";
-import { Grid, Paper, Typography } from "@material-ui/core";
 import SheetTextElement from "./SheetTextElement";
 
 type Props = { character: Character };
@@ -20,17 +20,17 @@ class PersonalData extends React.Component<Props> {
     {
       name: "Name/Alias",
       value: this.props.character.bio.name,
-      size: 12,
+      size: 16,
     },
     {
       name: "Metatype",
       value: this.props.character.bio.metatype.name,
-      size: 6,
+      size: 8,
     },
     {
       name: "Ethnicity",
       value: this.props.character.bio.ethnicity,
-      size: 6,
+      size: 8,
     },
     {
       name: "Age",
@@ -45,53 +45,53 @@ class PersonalData extends React.Component<Props> {
     {
       name: "Height",
       value: this.props.character.bio.height,
-      size: 3,
+      size: 5,
     },
     {
       name: "Weight",
       value: this.props.character.bio.weight,
-      size: 3,
+      size: 5,
     },
     {
       name: "Reputation",
       value: this.props.character.reputation,
-      size: 6,
+      size: 8,
     },
     {
       name: "Heat",
       value: this.props.character.heat,
-      size: 6,
+      size: 8,
     },
     {
       name: "Karma",
       value: this.props.character.karma,
-      size: 4,
+      size: 5,
     },
     {
       name: "Total Karma",
       value: this.props.character.totalKarma,
-      size: 4,
+      size: 5,
     },
     {
       name: "Misc",
       value: "",
-      size: 4,
+      size: 6,
     },
   ];
 
   render = () => (
-    <Paper>
-      <Typography variant="h3">Personal Data</Typography>
-      <Grid container spacing={3}>
+    <Segment>
+      <Header color="violet">
+        <HeaderContent size="big">Personal Data</HeaderContent>
+      </Header>
+      <Grid>
         {this.elements.map((e) => (
-          <Grid item key={e.name} xs={e.size}>
-            <Paper>
-              <SheetTextElement name={e.name} value={e.value} />
-            </Paper>
-          </Grid>
+          <Grid.Column stretched key={e.name} width={e.size}>
+            <SheetTextElement name={e.name} value={e.value} />
+          </Grid.Column>
         ))}
       </Grid>
-    </Paper>
+    </Segment>
   );
 }
 

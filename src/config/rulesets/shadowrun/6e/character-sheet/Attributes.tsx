@@ -1,8 +1,7 @@
 import React from "react";
 import { Character } from "../Character";
-import { Grid, Paper, Typography } from "@material-ui/core";
-import classes from "*.module.css";
 import SheetTextElement from "./SheetTextElement";
+import { Segment, Header, Grid } from "semantic-ui-react";
 
 type Props = { character: Character };
 
@@ -126,18 +125,16 @@ class Attributes extends React.Component<Props> {
   ];
 
   render = () => (
-    <Paper>
-      <Typography variant="h3">Personal Data</Typography>
-      <Grid container spacing={3}>
+    <Segment>
+      <Header color="violet">Attributes</Header>
+      <Grid columns="2" stretched>
         {this.elements.map((e) => (
-          <Grid item key={e.name} xs={e.size}>
-            <Paper className={classes.paper}>
-              <SheetTextElement name={e.name} value={e.value} />
-            </Paper>
-          </Grid>
+          <Grid.Column key={e.name} textAlign="right">
+            <SheetTextElement name={e.name} value={e.value} />
+          </Grid.Column>
         ))}
       </Grid>
-    </Paper>
+    </Segment>
   );
 }
 
