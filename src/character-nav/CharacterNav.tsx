@@ -13,7 +13,7 @@ import {
   Image,
 } from "semantic-ui-react";
 import { CharacterBio } from "../config/rulesets/shadowrun/6e/CharacterBio.interface";
-import { AVATAR_IMAGE } from "../api/AvatarService";
+import { getAvatarFor } from "../api/AvatarService";
 
 export const drawerWidth = 240;
 
@@ -116,29 +116,21 @@ class CharacterNav extends React.Component<Props, State> {
             <List.Item key={char.uuid}>
               <List.Content verticalAlign="middle">
                 <Segment>
-                  <Image src={AVATAR_IMAGE()} floated="left" avatar></Image>
+                  <Image src={getAvatarFor(char)} floated="left" avatar></Image>
                   <List.Header>
                     {char.name}
                     <ButtonGroup floated="right">
                       <Button
+                        as={Link}
+                        to={`/${char.uuid}/shop`}
                         icon="shopping cart"
                         size="mini"
-                        onClick={() =>
-                          this.props.changeSection({
-                            character: char.uuid,
-                            section: "shop",
-                          })
-                        }
                       ></Button>
                       <Button
+                        as={Link}
+                        to={`/${char.uuid}/sheet`}
                         size="mini"
                         icon="address book"
-                        onClick={() =>
-                          this.props.changeSection({
-                            character: char.uuid,
-                            section: "sheet",
-                          })
-                        }
                       ></Button>
                     </ButtonGroup>
                   </List.Header>

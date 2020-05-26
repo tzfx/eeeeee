@@ -8,7 +8,10 @@ import CharacterNav, { NavSection } from "./character-nav/CharacterNav";
 import { CharacterBio } from "./config/rulesets/shadowrun/6e/CharacterBio.interface";
 import { Home } from "./home/Home";
 import { NewCharacter } from "./new-character/NewCharacter";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, Router, Route } from "react-router-dom";
+// import { Character } from "./config/rulesets/shadowrun/6e/Character";
+import { AdeptExample } from "./config/rulesets/shadowrun/6e/archetypes/Adept";
+import CharacterSheet from "./config/rulesets/shadowrun/6e/character-sheet/CharacterSheet";
 
 type Props = Record<string, unknown>;
 
@@ -33,12 +36,15 @@ class App extends React.Component<Props, State> {
   loadCharacters() {
     CharacterService.getCharacters()
       .then((res) => res.json())
-      .then((data) => {
+      .then((data: CharacterBio[]) => {
         if (data != null) {
-          this.setState({ characters: data }, () => {
+          this.setState({ characters: data.concat([AdeptExample.bio]) }, () => {
             this.setState({ loadingCharacters: false });
           });
         }
+      })
+      .catch((err) => {
+        console.error(`An error occurred loading characters: ${err}`);
       });
   }
 
@@ -57,23 +63,20 @@ class App extends React.Component<Props, State> {
   };
 
   renderView() {
-    let view;
-    switch (this.state.active.section) {
-      case "home":
-        view = <Home characters={this.state.characters} campaigns={[]}></Home>;
-        break;
-      case "new":
-        view = (
+    return (
+      <div>
+        <Route exact path="/new">
           <NewCharacter
             doExit={() => this.handleSectionChange({ section: "home" })}
             newCharacterCreated={this.updateCharacterList}
           />
-        );
-        break;
-      default:
-        view = <div>An unknown view was encountered.</div>;
-    }
-    return view;
+        </Route>
+        <Route exact path="/home">
+          <Home characters={this.state.characters} campaigns={[]}></Home>
+        </Route>
+        <Route path="/:uuid/sheet" component={CharacterSheet} />
+      </div>
+    );
   }
 
   render() {

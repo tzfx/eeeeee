@@ -4,6 +4,8 @@ import { Express } from "express-serve-static-core";
 import { v4 as UUID } from "uuid";
 import bodyParser from "body-parser";
 import { LevelUp } from "levelup";
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 import level = require("level");
 
 const PORT = 3001;
@@ -17,7 +19,7 @@ class Application {
     this.express = express();
     this.express.use(bodyParser.json());
     this.db = level("./db");
-    if (process.env.NODE_ENV !== "production") this.db.clear();
+    if (process.env.NODE_ENV === "development") this.db.clear();
     this.startServer();
   }
 

@@ -1,7 +1,6 @@
 import React from "react";
 import { Character } from "../Character";
 import { Grid, Paper, Typography } from "@material-ui/core";
-import classes from "*.module.css";
 import SheetTextElement from "./SheetTextElement";
 
 type Props = { character: Character };
@@ -86,7 +85,7 @@ class PersonalData extends React.Component<Props> {
       <Grid container spacing={3}>
         {this.elements.map((e) => (
           <Grid item key={e.name} xs={e.size}>
-            <Paper className={classes.paper}>
+            <Paper>
               <SheetTextElement name={e.name} value={e.value} />
             </Paper>
           </Grid>

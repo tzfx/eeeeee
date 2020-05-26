@@ -34,13 +34,18 @@ const Perception4 = new Perception();
 Perception4.rank = 4;
 Perception4.specialized = "Visual +2";
 
+const human = new Human();
+
 // Character
 const Adept: Character = new Character(
   new CharacterBioBuilder()
     .setAge(25)
     .setEthnicity("American")
-    .setMetatype(new Human())
+    .setMetatype(human)
     .setName("Herkule")
+    .setHeight(human.averageHeight)
+    .setWeight(human.averageHeight)
+    .setSex("M")
     .build(),
   new AttributesBuilder(new Human(), {} as any)
     .set("body", 5)

@@ -1,7 +1,6 @@
 import React from "react";
 import { Character } from "../Character";
 import { Grid, Paper, Typography } from "@material-ui/core";
-import classes from "*.module.css";
 import SheetTextElement from "./SheetTextElement";
 
 type Props = { character: Character };
@@ -16,7 +15,7 @@ class CombatInfo extends React.Component<Props> {
       <Typography variant="h3">Core Combat Info</Typography>
       <Grid container spacing={3}>
         <Grid item xs={12}>
-          <Paper className={classes.paper}>
+          <Paper>
             <SheetTextElement
               name="Primary Armor"
               value={this.props.character.combat?.armor?.name ?? "Not Equipped"}
@@ -28,7 +27,7 @@ class CombatInfo extends React.Component<Props> {
           </Paper>
         </Grid>
         <Grid item xs={12}>
-          <Paper className={classes.paper}>
+          <Paper>
             <SheetTextElement
               name="Primary Ranged Weapon"
               value={
@@ -67,7 +66,7 @@ class CombatInfo extends React.Component<Props> {
           </Paper>
         </Grid>
         <Grid item xs={12}>
-          <Paper className={classes.paper}>
+          <Paper>
             <SheetTextElement
               name="Primary Melee Weapon"
               value={this.props.character.combat?.melee?.name ?? "Not Equipped"}
